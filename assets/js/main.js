@@ -57,4 +57,55 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('success', 'Thank you — your message has been submitted.');
     }, 1200);
   });
+
+  // Address modal handling
+  const addressModalEl = document.getElementById('addressModal');
+  const addressForm = document.getElementById('addressForm');
+  const addressTypeInput = document.getElementById('addressType');
+
+  if (addressModalEl) {
+    addressModalEl.addEventListener('show.bs.modal', (event) => {
+      const button = event.relatedTarget;
+      const type = button ? button.getAttribute('data-address-type') : 'from';
+      const modalTitle = document.getElementById('addressModalLabel');
+      if (modalTitle) modalTitle.textContent = type === 'from' ? 'Add address — Ship from' : 'Add address — Ship to';
+      if (addressTypeInput) addressTypeInput.value = type;
+      if (addressForm) {
+        addressForm.reset();
+        addressForm.classList.remove('was-validated');
+      }
+    });
+  }
+
+  if (addressForm) {
+    addressForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!addressForm.checkValidity()) {
+        addressForm.classList.add('was-validated');
+        const firstInvalid = addressForm.querySelector(':invalid');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // Simulate saving the address and close modal
+      const saveBtn = addressForm.querySelector('button[type="submit"]');
+      const origText = saveBtn ? saveBtn.innerHTML : null;
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = 'Saving...';
+      }
+
+      setTimeout(() => {
+        const typeLabel = addressTypeInput && addressTypeInput.value === 'to' ? 'Ship to' : 'Ship from';
+        showAlert('success', `${typeLabel} address saved.`);
+        // Hide modal
+        const modalInstance = bootstrap.Modal.getInstance(addressModalEl);
+        if (modalInstance) modalInstance.hide();
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.innerHTML = origText;
+        }
+      }, 800);
+    });
+  }
 });
