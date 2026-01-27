@@ -108,4 +108,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 800);
     });
   }
+
+  // Show boxes section when a units radio is selected
+  const boxesSection = document.getElementById('boxesSection');
+  const unitsRadios = document.querySelectorAll('input[name="units"]');
+  function onUnitsChange() {
+    if (!boxesSection) return;
+    // If any radio is checked, reveal boxes
+    const selected = Array.from(unitsRadios).some(r => r.checked);
+    if (selected) {
+      boxesSection.classList.remove('d-none');
+      boxesSection.removeAttribute('aria-hidden');
+      const firstInput = boxesSection.querySelector('input');
+      if (firstInput) firstInput.focus();
+    } else {
+      boxesSection.classList.add('d-none');
+      boxesSection.setAttribute('aria-hidden', 'true');
+    }
+  }
+  unitsRadios.forEach(r => r.addEventListener('change', onUnitsChange));
+  // initialize visibility
+  onUnitsChange();
 });
