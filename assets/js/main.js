@@ -165,13 +165,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Delegated handler: remove the specific box row when its remove button is clicked
   if (boxesRows) {
+    // delegate clicks for per-row Add and Remove buttons
     boxesRows.addEventListener('click', (e) => {
-      const btn = e.target.closest && e.target.closest('.remove-box-btn');
-      if (!btn) return;
-      const row = btn.closest('.row');
-      if (!row) return;
-      row.remove();
-      updateBoxUnits();
+      const addBtn = e.target.closest && e.target.closest('.add-box-row-btn');
+      if (addBtn) {
+        const row = addBtn.closest('.row');
+        if (!row) return;
+        const clone = boxRowTemplate.content.cloneNode(true);
+        // insert after the current row
+        row.after(clone);
+        updateBoxUnits();
+        const nextRow = row.nextElementSibling;
+        if (nextRow) {
+          const firstInput = nextRow.querySelector('input');
+          if (firstInput) firstInput.focus();
+        }
+        return;
+      }
+
+      const removeBtn = e.target.closest && e.target.closest('.remove-box-btn');
+      if (removeBtn) {
+        const row = removeBtn.closest('.row');
+        if (!row) return;
+        row.remove();
+        updateBoxUnits();
+      }
     });
   }
 
