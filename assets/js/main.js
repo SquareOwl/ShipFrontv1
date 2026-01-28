@@ -151,15 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const addBoxRow = (afterRow) => {
     if (!boxesRows || !boxRowTemplate) return;
     const clone = boxRowTemplate.content.cloneNode(true);
-    if (afterRow && afterRow.parentNode) {
-      afterRow.after(clone);
+    // Always insert the cloned row into the `boxesRows` container so it stays inside the form.
+    if (afterRow && boxesRows.contains(afterRow)) {
+      boxesRows.insertBefore(clone, afterRow.nextSibling);
     } else {
       boxesRows.appendChild(clone);
     }
     // ensure new unit labels reflect current unit selection
     updateBoxUnits();
     // focus first input of the newly added row
-    const newRow = afterRow ? afterRow.nextElementSibling : boxesRows.lastElementChild;
+    const newRow = afterRow && boxesRows.contains(afterRow) ? afterRow.nextElementSibling : boxesRows.lastElementChild;
     if (newRow) {
       const firstInput = newRow.querySelector('input');
       if (firstInput) firstInput.focus();
