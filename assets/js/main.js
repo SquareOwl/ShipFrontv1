@@ -129,4 +129,18 @@ document.addEventListener('DOMContentLoaded', () => {
   unitsRadios.forEach(r => r.addEventListener('change', onUnitsChange));
   // initialize visibility
   onUnitsChange();
+
+  // Restrict the pickup date input to today or later
+  const pickupDateInput = document.getElementById('pickupDate');
+  if (pickupDateInput) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const minDate = `${yyyy}-${mm}-${dd}`;
+    pickupDateInput.setAttribute('min', minDate);
+    if (pickupDateInput.value && pickupDateInput.value < minDate) {
+      pickupDateInput.value = '';
+    }
+  }
 });
