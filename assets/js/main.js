@@ -126,38 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       boxesSection.setAttribute('aria-hidden', 'true');
     }
   }
-  // Allow a checked radio to be unselected by clicking it again (and via keyboard).
-  unitsRadios.forEach(r => {
-    // Track whether it was checked before the interaction (mouse)
-    r.addEventListener('mousedown', () => {
-      r.dataset.wasChecked = r.checked ? 'true' : 'false';
-    });
-
-    // Toggle off when clicking an already-checked radio
-    r.addEventListener('click', (e) => {
-      if (r.dataset.wasChecked === 'true') {
-        // Uncheck and update UI
-        r.checked = false;
-        onUnitsChange();
-        // Prevent implicit re-selection on some browsers
-        e.preventDefault();
-      }
-      delete r.dataset.wasChecked;
-    });
-
-    // Support keyboard (Space) to unselect when already checked
-    r.addEventListener('keydown', (e) => {
-      const isSpace = e.key === ' ' || e.key === 'Spacebar' || e.key === 'Space';
-      if (isSpace && r.checked) {
-        e.preventDefault();
-        r.checked = false;
-        onUnitsChange();
-      }
-    });
-
-    // Normal change handler
-    r.addEventListener('change', onUnitsChange);
-  });
+  unitsRadios.forEach(r => r.addEventListener('change', onUnitsChange));
   // initialize visibility
   onUnitsChange();
 });
