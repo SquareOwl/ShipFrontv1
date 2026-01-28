@@ -167,7 +167,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   if (addBoxBtn) {
-    addBoxBtn.addEventListener('click', () => addBoxRow());
+    addBoxBtn.addEventListener('click', (e) => {
+      // If the primary Add button lives inside a row, insert after that row.
+      const row = addBoxBtn.closest && addBoxBtn.closest('.row');
+      if (row && boxesRows && boxesRows.contains(row)) {
+        addBoxRow(row);
+      } else {
+        addBoxRow();
+      }
+    });
   }
 
   // Delegated handler: handle per-row Add button clicks (insert new row after clicked row)
