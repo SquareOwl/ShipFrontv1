@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const unitsRadios = document.querySelectorAll('input[name="units"]');
   function onUnitsChange() {
     if (!boxesSection) return;
-    // If any radio is checked, reveal boxes
     const selected = Array.from(unitsRadios).some(r => r.checked);
     if (selected) {
       boxesSection.classList.remove('d-none');
@@ -127,78 +126,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   unitsRadios.forEach(r => r.addEventListener('change', onUnitsChange));
-  // initialize visibility
   onUnitsChange();
 
-  // Update unit prefixes for box inputs (in/cm for dims, lb/kg for weight)
+  // Update unit labels for box rows
   const updateBoxUnits = () => {
     const isImperial = document.getElementById('unitsImperial') && document.getElementById('unitsImperial').checked;
     const dim = isImperial ? 'in' : 'cm';
     const weight = isImperial ? 'lb' : 'kg';
-    const boxUnitDimElems = document.querySelectorAll('.box-unit-dim');
-    const boxUnitWeightElems = document.querySelectorAll('.box-unit-weight');
-    boxUnitDimElems.forEach(el => el.textContent = dim);
-    boxUnitWeightElems.forEach(el => el.textContent = weight);
+    document.querySelectorAll('.box-unit-dim').forEach(el => el.textContent = dim);
+    document.querySelectorAll('.box-unit-weight').forEach(el => el.textContent = weight);
   };
   unitsRadios.forEach(r => r.addEventListener('change', updateBoxUnits));
-  // initialize unit labels
   updateBoxUnits();
 
-  // Add-box behavior: append or insert a new row cloned from template
-  const addBoxBtn = document.getElementById('addBoxBtn');
+  // Add / remove rows via delegation
   const boxesRows = document.getElementById('boxesRows');
   const boxRowTemplate = document.getElementById('boxRowTemplate');
   const addBoxRow = (afterRow) => {
     if (!boxesRows || !boxRowTemplate) return;
     const clone = boxRowTemplate.content.cloneNode(true);
-    // Always insert the cloned row into the `boxesRows` container so it stays inside the form.
     if (afterRow && boxesRows.contains(afterRow)) {
       boxesRows.insertBefore(clone, afterRow.nextSibling);
+      const inserted = afterRow.nextElementSibling;
+      if (inserted) {
+        updateBoxUnits();
+        const firstInput = inserted.querySelector('input');
+        if (firstInput) firstInput.focus();
+      }
     } else {
       boxesRows.appendChild(clone);
-    }
-    // ensure new unit labels reflect current unit selection
-    updateBoxUnits();
-    // focus first input of the newly added row
-    const newRow = afterRow && boxesRows.contains(afterRow) ? afterRow.nextElementSibling : boxesRows.lastElementChild;
-    if (newRow) {
-      const firstInput = newRow.querySelector('input');
-      if (firstInput) firstInput.focus();
+      const inserted = boxesRows.lastElementChild;
+      if (inserted) {
+        updateBoxUnits();
+        const firstInput = inserted.querySelector('input');
+        if (firstInput) firstInput.focus();
+      }
     }
   };
-  if (addBoxBtn) {
-    addBoxBtn.addEventListener('click', (e) => {
-      // If the primary Add button lives inside a row, insert after that row.
-      const row = addBoxBtn.closest && addBoxBtn.closest('.row');
-      if (row && boxesRows && boxesRows.contains(row)) {
-        addBoxRow(row);
-      } else {
-        addBoxRow();
-      }
-    });
-  }
 
-  // Delegated handler: handle per-row Add button clicks (insert new row after clicked row)
   if (boxesRows) {
     boxesRows.addEventListener('click', (e) => {
-      const removeBtn = e.target.closest && e.target.closest('.remove-box-btn');
-      if (removeBtn) {
-        const row = removeBtn.closest('.row');
-        if (row && boxesRows.contains(row)) {
-          row.remove();
-        }
-        return;
-      }
-
       const addBtn = e.target.closest && e.target.closest('.add-box-btn');
       if (addBtn) {
         const row = addBtn.closest('.row');
         addBoxRow(row);
+        return;
+      }
+      const removeBtn = e.target.closest && e.target.closest('.remove-box-btn');
+      if (removeBtn) {
+        const row = removeBtn.closest('.row');
+        if (row && boxesRows.contains(row)) row.remove();
+        return;
       }
     });
   }
-
-  // (remove-last behaviour removed — only Add box remains)
 
   // Restrict the pickup date input to today or later
   const pickupDateInput = document.getElementById('pickupDate');
