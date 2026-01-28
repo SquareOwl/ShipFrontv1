@@ -173,6 +173,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delegated handler: handle per-row Add button clicks (insert new row after clicked row)
   if (boxesRows) {
     boxesRows.addEventListener('click', (e) => {
+      const removeBtn = e.target.closest && e.target.closest('.remove-box-btn');
+      if (removeBtn) {
+        const row = removeBtn.closest('.row');
+        if (row && boxesRows.contains(row)) {
+          row.remove();
+        }
+        return;
+      }
+
       const addBtn = e.target.closest && e.target.closest('.add-box-btn');
       if (addBtn) {
         const row = addBtn.closest('.row');
