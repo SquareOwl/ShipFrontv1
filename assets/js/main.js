@@ -163,6 +163,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Delegated handler: remove the specific box row when its remove button is clicked
+  if (boxesRows) {
+    boxesRows.addEventListener('click', (e) => {
+      const btn = e.target.closest && e.target.closest('.remove-box-btn');
+      if (!btn) return;
+      const row = btn.closest('.row');
+      if (!row) return;
+      row.remove();
+      updateBoxUnits();
+    });
+  }
+
   // (remove-last behaviour removed — only Add box remains)
 
   // Restrict the pickup date input to today or later
