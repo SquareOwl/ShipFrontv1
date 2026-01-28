@@ -163,21 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Remove-last-row button (next to Add box) behavior
-  const removeLastBoxBtn = document.getElementById('removeLastBoxBtn');
-  if (removeLastBoxBtn && boxesRows) {
-    removeLastBoxBtn.addEventListener('click', () => {
-      const topRows = Array.from(boxesRows.children).filter(n => n.classList && n.classList.contains('row'));
-      if (topRows.length > 1) {
-        const last = topRows[topRows.length - 1];
-        last.remove();
-      } else if (topRows.length === 1) {
-        const inputs = topRows[0].querySelectorAll('input');
-        inputs.forEach(i => i.value = '');
-      }
-      updateBoxUnits();
-    });
-  }
+  // (remove-last behaviour removed — only Add box remains)
 
   // Restrict the pickup date input to today or later
   const pickupDateInput = document.getElementById('pickupDate');
