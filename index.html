@@ -37,10 +37,20 @@
               <hr class="my-4">
 
               <h3 class="fs-4 fw-semibold mt-3 mb-3">Shipment Details:</h3>
-              <div class="mb-3">
-                <label for="fullName" class="form-label">Items description, be accurate:</label>
-                <input type="text" class="form-control" id="fullName" name="fullName" required maxlength="100">
-                <div class="invalid-feedback">Please enter an item description.</div>
+              <div class="row mb-3">
+                <div class="col-md-8 mb-3 mb-md-0">
+                  <label for="fullName" class="form-label">Items description, be accurate:</label>
+                  <input type="text" class="form-control" id="fullName" name="fullName" required maxlength="100">
+                  <div class="invalid-feedback">Please enter an item description.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="itemValue" class="form-label">Total Shipment Value:</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="itemValue" name="itemValue" required step="0.01" min="0" placeholder="0.00">
+                  </div>
+                  <div class="invalid-feedback">Please provide an item value.</div>
+                </div>
               </div>
               <hr class="my-4">
 
@@ -85,15 +95,7 @@
               </div>
               <hr class="my-4">
 
-              <div class="mb-3">
-                <label for="itemValue" class="form-label">Total Shipment Value:</label>
-                <div class="input-group">
-                  <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="itemValue" name="itemValue" required step="0.01" min="0" placeholder="0.00">
-                </div>
-                <div class="invalid-feedback">Please provide an item value.</div>
-              </div>
-              <hr class="my-4">
+              
 
               <div class="mb-3">
                 <label for="pickupDate" class="form-label">The shipment will be ready for pickup on:</label>
