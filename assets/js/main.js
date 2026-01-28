@@ -130,6 +130,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // initialize visibility
   onUnitsChange();
 
+  // Update unit prefixes for box inputs (in/cm for dims, lb/kg for weight)
+  const boxUnitDimElems = document.querySelectorAll('.box-unit-dim');
+  const boxUnitWeightElems = document.querySelectorAll('.box-unit-weight');
+  const updateBoxUnits = () => {
+    const isImperial = document.getElementById('unitsImperial') && document.getElementById('unitsImperial').checked;
+    const dim = isImperial ? 'in' : 'cm';
+    const weight = isImperial ? 'lb' : 'kg';
+    boxUnitDimElems.forEach(el => el.textContent = dim);
+    boxUnitWeightElems.forEach(el => el.textContent = weight);
+  };
+  unitsRadios.forEach(r => r.addEventListener('change', updateBoxUnits));
+  // initialize unit labels
+  updateBoxUnits();
+
   // Restrict the pickup date input to today or later
   const pickupDateInput = document.getElementById('pickupDate');
   if (pickupDateInput) {
