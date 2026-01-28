@@ -34,6 +34,7 @@
                   <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addressModal" data-address-type="to" aria-label="Add address">Add address</button>
                 </div>
               </div>
+              <hr class="my-4">
 
               <h3 class="fs-4 fw-semibold mt-3 mb-3">Shipment Details:</h3>
               <div class="mb-3">
@@ -41,6 +42,7 @@
                 <input type="text" class="form-control" id="fullName" name="fullName" required maxlength="100">
                 <div class="invalid-feedback">Please enter an item description.</div>
               </div>
+              <hr class="my-4">
 
               <!-- Boxes container: heading + unit selection; inputs hidden until units selected -->
               <div id="boxesContainer" class="mb-3">
@@ -81,6 +83,7 @@
                 </div>
                 </div>
               </div>
+              <hr class="my-4">
 
               <div class="mb-3">
                 <label for="itemValue" class="form-label">Total Shipment Value:</label>
@@ -90,12 +93,14 @@
                 </div>
                 <div class="invalid-feedback">Please provide an item value.</div>
               </div>
+              <hr class="my-4">
 
               <div class="mb-3">
                 <label for="pickupDate" class="form-label">The shipment will be ready for pickup on:</label>
                 <input type="date" id="pickupDate" name="pickupDate" class="form-control">
                 <div class="invalid-feedback">Please select a pickup date.</div>
               </div>
+              <hr class="my-4">
 
               
 
@@ -106,6 +111,7 @@
                 <textarea class="form-control" id="message" name="message" rows="5" required maxlength="1000"></textarea>
                 <div class="invalid-feedback">Please enter a message.</div>
               </div>
+              <hr class="my-4">
 
               <button type="submit" id="submitBtn" class="btn btn-primary">
                 <span id="submitBtnText">Submit</span>
