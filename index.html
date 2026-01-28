@@ -72,7 +72,10 @@
                   <div class="row g-2 mb-2">
                   <div class="col-6 col-md-2">
                     <label for="boxQty" class="form-label">Box Quantity</label>
-                    <input type="number" id="boxQty" name="boxQty" class="form-control" min="0">
+                    <div class="input-group">
+                      <input type="number" id="boxQty" name="boxQty" class="form-control" min="0">
+                      <span class="input-group-text box-unit box-unit-empty" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                    </div>
                   </div>
                   <div class="col-6 col-md-2">
                     <label for="boxWeight" class="form-label">Weight</label>
