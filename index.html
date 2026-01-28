@@ -42,15 +42,43 @@
                 <div class="invalid-feedback">Please enter an item description.</div>
               </div>
 
-              <!-- Units radio placed above boxes; no default selected -->
-              <div class="mb-3">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric">
-                  <label class="form-check-label" for="unitsMetric">Metric (cm/kg)</label>
+              <!-- Boxes container: heading + unit selection; inputs hidden until units selected -->
+              <div id="boxesContainer" class="mb-3">
+                <label class="form-label">Boxes</label>
+                <div class="mb-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric">
+                    <label class="form-check-label" for="unitsMetric">Metric (cm/kg)</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="units" id="unitsImperial" value="imperial">
+                    <label class="form-check-label" for="unitsImperial">Imperial (in/lb)</label>
+                  </div>
                 </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="units" id="unitsImperial" value="imperial">
-                  <label class="form-check-label" for="unitsImperial">Imperial (in/lb)</label>
+
+                <div id="boxesSection" class="d-none" aria-hidden="true">
+                  <div class="row g-2 mb-2">
+                  <div class="col-6 col-md-2">
+                    <label for="boxQty" class="form-label visually-hidden">Box Quantity</label>
+                    <input type="number" id="boxQty" name="boxQty" class="form-control" placeholder="Qty" min="0">
+                  </div>
+                  <div class="col-6 col-md-2">
+                    <label for="boxWeight" class="form-label visually-hidden">Weight</label>
+                    <input type="number" id="boxWeight" name="boxWeight" class="form-control" placeholder="Weight" step="any" min="0">
+                  </div>
+                  <div class="col-6 col-md-2">
+                    <label for="boxLength" class="form-label visually-hidden">Length</label>
+                    <input type="number" id="boxLength" name="boxLength" class="form-control" placeholder="Length" step="any" min="0">
+                  </div>
+                  <div class="col-6 col-md-2">
+                    <label for="boxWidth" class="form-label visually-hidden">Width</label>
+                    <input type="number" id="boxWidth" name="boxWidth" class="form-control" placeholder="Width" step="any" min="0">
+                  </div>
+                  <div class="col-6 col-md-2">
+                    <label for="boxHeight" class="form-label visually-hidden">Height</label>
+                    <input type="number" id="boxHeight" name="boxHeight" class="form-control" placeholder="Height" step="any" min="0">
+                  </div>
+                </div>
                 </div>
               </div>
 
