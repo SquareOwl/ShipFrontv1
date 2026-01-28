@@ -169,7 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
     addBoxBtn.addEventListener('click', () => addBoxRow());
   }
 
-  // No per-row remove/add delegation needed — only the main Add button is used
+  // Delegated handler: handle per-row Add button clicks (insert new row after clicked row)
+  if (boxesRows) {
+    boxesRows.addEventListener('click', (e) => {
+      const addBtn = e.target.closest && e.target.closest('.add-box-btn');
+      if (addBtn) {
+        const row = addBtn.closest('.row');
+        addBoxRow(row);
+      }
+    });
+  }
 
   // (remove-last behaviour removed — only Add box remains)
 
