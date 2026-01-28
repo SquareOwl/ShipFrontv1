@@ -6,6 +6,12 @@
     <title>Starter — Blank Slate</title>
     <!-- Bootstrap CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      /* Small helper: enforce a fixed visual width for the quantity input.
+         Using a dedicated class keeps layout stable (12ch) without relying
+         on responsive utility classes that may alter spacing. */
+      .qty-12ch { width: 12ch; }
+    </style>
   </head>
   <body class="bg-light">
     <header class="py-2">
@@ -76,7 +82,7 @@
                     <div class="row g-3 mb-2 align-items-end">
                       <div class="col-6 col-md-2">
                         <label class="form-label">Box Quantity</label>
-                        <input type="number" name="boxQty[]" class="form-control" min="0" style="width:12ch;" aria-label="Box quantity">
+                        <input type="number" name="boxQty[]" class="form-control qty-12ch" min="0" aria-label="Box quantity">
                       </div>
                       <div class="col-6 col-md-2">
                         <label class="form-label">Weight</label>
@@ -116,7 +122,7 @@
                     <div class="row g-3 mb-2 align-items-end">
                       <div class="col-6 col-md-2">
                         <label class="form-label">Box Quantity</label>
-                        <input type="number" name="boxQty[]" class="form-control" min="0" style="width:12ch;" aria-label="Box quantity">
+                        <input type="number" name="boxQty[]" class="form-control qty-12ch" min="0" aria-label="Box quantity">
                       </div>
                       <div class="col-6 col-md-2">
                         <label class="form-label">Weight</label>
