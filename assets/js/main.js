@@ -144,34 +144,48 @@ document.addEventListener('DOMContentLoaded', () => {
   // initialize unit labels
   updateBoxUnits();
 
-  // Add-box behavior: append a new row cloned from template
+  // Add-box behavior: append or insert a new row cloned from template
   const addBoxBtn = document.getElementById('addBoxBtn');
   const boxesRows = document.getElementById('boxesRows');
   const boxRowTemplate = document.getElementById('boxRowTemplate');
-  if (addBoxBtn && boxesRows && boxRowTemplate) {
-    addBoxBtn.addEventListener('click', () => {
-      const clone = boxRowTemplate.content.cloneNode(true);
+  const addBoxRow = (afterRow) => {
+    if (!boxesRows || !boxRowTemplate) return;
+    const clone = boxRowTemplate.content.cloneNode(true);
+    if (afterRow && afterRow.parentNode) {
+      afterRow.after(clone);
+    } else {
       boxesRows.appendChild(clone);
-      // ensure new unit labels reflect current unit selection
-      updateBoxUnits();
-      // focus first input of the newly added row
-      const lastRow = boxesRows.lastElementChild;
-      if (lastRow) {
-        const firstInput = lastRow.querySelector('input');
-        if (firstInput) firstInput.focus();
-      }
-    });
+    }
+    // ensure new unit labels reflect current unit selection
+    updateBoxUnits();
+    // focus first input of the newly added row
+    const newRow = afterRow ? afterRow.nextElementSibling : boxesRows.lastElementChild;
+    if (newRow) {
+      const firstInput = newRow.querySelector('input');
+      if (firstInput) firstInput.focus();
+    }
+  };
+  if (addBoxBtn) {
+    addBoxBtn.addEventListener('click', () => addBoxRow());
   }
 
   // Delegated handler: remove the specific box row when its remove button is clicked
   if (boxesRows) {
     boxesRows.addEventListener('click', (e) => {
-      const btn = e.target.closest && e.target.closest('.remove-box-btn');
-      if (!btn) return;
-      const row = btn.closest('.row');
-      if (!row) return;
-      row.remove();
-      updateBoxUnits();
+      const removeBtn = e.target.closest && e.target.closest('.remove-box-btn');
+      if (removeBtn) {
+        const row = removeBtn.closest('.row');
+        if (!row) return;
+        row.remove();
+        updateBoxUnits();
+        return;
+      }
+      const addBtn = e.target.closest && e.target.closest('.add-box-btn');
+      if (addBtn) {
+        const row = addBtn.closest('.row');
+        addBoxRow(row);
+        return;
+      }
     });
   }
 
