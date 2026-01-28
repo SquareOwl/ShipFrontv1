@@ -163,24 +163,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Delegated handler for remove buttons on box rows
-  if (boxesRows) {
-    boxesRows.addEventListener('click', (e) => {
-      const btn = e.target.closest && e.target.closest('.remove-box-btn');
-      if (!btn) return;
-      // Find the row container to remove (closest row)
-      const row = btn.closest('.row');
-      if (!row) return;
-      // Count top-level rows inside boxesRows
+  // Remove-last-row button (next to Add box) behavior
+  const removeLastBoxBtn = document.getElementById('removeLastBoxBtn');
+  if (removeLastBoxBtn && boxesRows) {
+    removeLastBoxBtn.addEventListener('click', () => {
       const topRows = Array.from(boxesRows.children).filter(n => n.classList && n.classList.contains('row'));
       if (topRows.length > 1) {
-        row.remove();
-      } else {
-        // If it's the last row, clear inputs instead of removing
-        const inputs = row.querySelectorAll('input');
+        const last = topRows[topRows.length - 1];
+        last.remove();
+      } else if (topRows.length === 1) {
+        const inputs = topRows[0].querySelectorAll('input');
         inputs.forEach(i => i.value = '');
       }
-      // Update unit labels in case of any change (no-op otherwise)
       updateBoxUnits();
     });
   }
