@@ -131,18 +131,59 @@ document.addEventListener('DOMContentLoaded', () => {
   onUnitsChange();
 
   // Update unit prefixes for box inputs (in/cm for dims, lb/kg for weight)
-  const boxUnitDimElems = document.querySelectorAll('.box-unit-dim');
-  const boxUnitWeightElems = document.querySelectorAll('.box-unit-weight');
   const updateBoxUnits = () => {
     const isImperial = document.getElementById('unitsImperial') && document.getElementById('unitsImperial').checked;
     const dim = isImperial ? 'in' : 'cm';
     const weight = isImperial ? 'lb' : 'kg';
+    const boxUnitDimElems = document.querySelectorAll('.box-unit-dim');
+    const boxUnitWeightElems = document.querySelectorAll('.box-unit-weight');
     boxUnitDimElems.forEach(el => el.textContent = dim);
     boxUnitWeightElems.forEach(el => el.textContent = weight);
   };
   unitsRadios.forEach(r => r.addEventListener('change', updateBoxUnits));
   // initialize unit labels
   updateBoxUnits();
+
+  // Add-box behavior: append a new row cloned from template
+  const addBoxBtn = document.getElementById('addBoxBtn');
+  const boxesRows = document.getElementById('boxesRows');
+  const boxRowTemplate = document.getElementById('boxRowTemplate');
+  if (addBoxBtn && boxesRows && boxRowTemplate) {
+    addBoxBtn.addEventListener('click', () => {
+      const clone = boxRowTemplate.content.cloneNode(true);
+      boxesRows.appendChild(clone);
+      // ensure new unit labels reflect current unit selection
+      updateBoxUnits();
+      // focus first input of the newly added row
+      const lastRow = boxesRows.lastElementChild;
+      if (lastRow) {
+        const firstInput = lastRow.querySelector('input');
+        if (firstInput) firstInput.focus();
+      }
+    });
+  }
+
+  // Delegated handler for remove buttons on box rows
+  if (boxesRows) {
+    boxesRows.addEventListener('click', (e) => {
+      const btn = e.target.closest && e.target.closest('.remove-box-btn');
+      if (!btn) return;
+      // Find the row container to remove (closest row)
+      const row = btn.closest('.row');
+      if (!row) return;
+      // Count top-level rows inside boxesRows
+      const topRows = Array.from(boxesRows.children).filter(n => n.classList && n.classList.contains('row'));
+      if (topRows.length > 1) {
+        row.remove();
+      } else {
+        // If it's the last row, clear inputs instead of removing
+        const inputs = row.querySelectorAll('input');
+        inputs.forEach(i => i.value = '');
+      }
+      // Update unit labels in case of any change (no-op otherwise)
+      updateBoxUnits();
+    });
+  }
 
   // Restrict the pickup date input to today or later
   const pickupDateInput = document.getElementById('pickupDate');
