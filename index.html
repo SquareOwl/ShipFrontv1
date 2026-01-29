@@ -64,7 +64,7 @@
                   <div class="flex-grow-1 d-flex justify-content-center">
                     <div class="d-flex gap-3 align-items-center">
                       <div class="form-check form-check-inline mb-0">
-                        <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric" checked required>
+                        <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric" checked>
                         <label class="form-check-label" for="unitsMetric">Metric (cm / kg)</label>
                       </div>
                       <div class="form-check form-check-inline mb-0">
@@ -77,37 +77,37 @@
                 <div id="boxesList">
                   <div class="row mb-2 box-row">
                     <div class="col-2">
-                        <label class="form-label">Quantity</label>
-                        <input type="number" class="form-control" name="boxQty[]" min="1" value="1" required>
+                      <label class="form-label">Quantity</label>
+                      <input type="number" class="form-control" name="boxQty[]" min="1" value="1">
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Weight</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxWeight[]" step="0.01" min="0">
+                        <span class="input-group-text box-unit-weight">kg</span>
                       </div>
-                      <div class="col-2">
-                        <label class="form-label">Weight</label>
-                        <div class="input-group">
-                          <input type="number" class="form-control" name="boxWeight[]" step="0.01" min="0" required>
-                          <span class="input-group-text box-unit-weight">kg</span>
-                        </div>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Length</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxLength[]" step="0.1" min="0">
+                        <span class="input-group-text box-unit-dim">cm</span>
                       </div>
-                      <div class="col-2">
-                        <label class="form-label">Length</label>
-                        <div class="input-group">
-                          <input type="number" class="form-control" name="boxLength[]" step="0.1" min="0" required>
-                          <span class="input-group-text box-unit-dim">cm</span>
-                        </div>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Width</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxWidth[]" step="0.1" min="0">
+                        <span class="input-group-text box-unit-dim">cm</span>
                       </div>
-                      <div class="col-2">
-                        <label class="form-label">Width</label>
-                        <div class="input-group">
-                          <input type="number" class="form-control" name="boxWidth[]" step="0.1" min="0" required>
-                          <span class="input-group-text box-unit-dim">cm</span>
-                        </div>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Height</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxHeight[]" step="0.1" min="0">
+                        <span class="input-group-text box-unit-dim">cm</span>
                       </div>
-                      <div class="col-2">
-                        <label class="form-label">Height</label>
-                        <div class="input-group">
-                          <input type="number" class="form-control" name="boxHeight[]" step="0.1" min="0" required>
-                          <span class="input-group-text box-unit-dim">cm</span>
-                        </div>
-                      </div>
+                    </div>
                     <div class="col-2 d-flex align-items-end">
                       <button type="button" class="btn btn-outline-danger btn-sm remove-box d-none">Remove</button>
                     </div>
@@ -120,7 +120,7 @@
               <hr class="my-4">
               <div class="mb-3">
                 <h4 class="fs-5 fw-semibold mb-2">The shipment will be ready for pickup on:</h4>
-                <input type="date" id="pickupDate" name="pickupDate" class="form-control w-25" required>
+                <input type="date" id="pickupDate" name="pickupDate" class="form-control w-25">
                 <div class="invalid-feedback">Please select a pickup date.</div>
               </div>
               <hr class="my-4">
@@ -138,6 +138,7 @@
 
               <button type="submit" id="submitBtn" class="btn btn-primary">
                 <span id="submitBtnText">Submit</span>
+                <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
               </button>
             </form>
           </div>
@@ -159,10 +160,10 @@
             <form id="addressForm" novalidate>
               <input type="hidden" id="addressType" name="addressType" value="" />
 
-                <div class="row">
+              <div class="row">
                 <div class="col-12 col-md-6 mb-3">
                   <label for="companyName" class="form-label">Company name</label>
-                  <input type="text" id="companyName" name="companyName" class="form-control" maxlength="200" placeholder="Optional" required>
+                  <input type="text" id="companyName" name="companyName" class="form-control" maxlength="200" placeholder="Optional">
                 </div>
 
                 <div class="col-12 col-md-6 mb-3">
@@ -182,8 +183,8 @@
                 </div>
 
                 <div class="col-12 col-md-6 mb-3">
-                  <label for="addrLine2" class="form-label">Address line 2</label>
-                  <input type="text" id="addrLine2" name="addrLine2" class="form-control" maxlength="200" required>
+                  <label for="addrLine2" class="form-label">Address line 2 (optional)</label>
+                  <input type="text" id="addrLine2" name="addrLine2" class="form-control" maxlength="200">
                 </div>
 
                 <div class="col-12 col-md-6 mb-3">
@@ -205,8 +206,8 @@
                 </div>
 
                 <div class="col-12 col-md-6 mb-3">
-                  <label for="phoneNumber" class="form-label">Phone number</label>
-                  <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" pattern="^[0-9+\\-() ]{7,}$" required>
+                  <label for="phoneNumber" class="form-label">Phone number (optional)</label>
+                  <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" pattern="^[0-9+\\-() ]{7,}$">
                   <div class="invalid-feedback">Please enter a valid phone number.</div>
                 </div>
               </div>
