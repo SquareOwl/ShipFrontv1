@@ -164,15 +164,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const manageRemoveVisibility = () => {
     if (!boxesList) return;
     const rows = boxesList.querySelectorAll('.box-row');
-    if (rows.length > 1) {
-      rows.forEach(r => {
-        const btn = r.querySelector('.remove-box');
-        if (btn) btn.classList.remove('d-none');
-      });
-    } else if (rows.length === 1) {
-      const btn = rows[0].querySelector('.remove-box');
-      if (btn) btn.classList.add('d-none');
-    }
+    // Always hide the remove button on the first row; show it for subsequent rows
+    rows.forEach((r, idx) => {
+      const btn = r.querySelector('.remove-box');
+      if (!btn) return;
+      if (idx === 0) btn.classList.add('d-none');
+      else btn.classList.remove('d-none');
+    });
   };
 
   const makeRowClone = () => {
