@@ -16,8 +16,12 @@
       .box-row .field { display:flex; flex-direction:column; gap:0.25rem; }
       .box-row .field .input-group,
       .box-row .field input { min-width:0; }
-      /* Fixed width for Weight, Length, Width, Height fields via class */
-      .dim-12ch { width: 12ch !important; min-width: 0; max-width: 100%; }
+      /* Fixed width for Weight, Length, Width, Height fields via class.
+        Use flex:0 0 to prevent Bootstrap input-group from stretching the input. */
+      .dim-12ch { width: 12ch !important; min-width: 0; max-width: 100%; flex: 0 0 12ch; box-sizing: border-box; }
+      /* Ensure inputs inside input-group also respect the fixed width */
+      .box-row .field .input-group { display:flex; align-items:center; gap:0.25rem; }
+      .box-row .field .input-group .dim-12ch { width: 12ch !important; flex: 0 0 12ch; min-width:0; }
       .box-row .field .box-unit { min-width:3ch; width:3ch; justify-content:center; }
       /* Remove native number input spin buttons across browsers for a cleaner UI. */
       /* Chrome, Safari, Edge, Opera */
