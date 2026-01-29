@@ -75,82 +75,88 @@
                   <div id="boxesRows">
                     <!-- initial row (no remove button) - compact inline layout -->
                     <div class="box-row d-flex flex-nowrap gap-2 align-items-end mb-2">
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:6ch;">
                         <label class="form-label mb-1">Quantity</label>
-                        <input type="number" name="boxQty[]" class="form-control form-control-sm w-auto" min="0" aria-label="Box quantity">
+                        <input type="number" name="boxQty[]" class="form-control form-control-sm" min="0" aria-label="Box quantity" style="width:100%;">
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Weight</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxWeight[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">kg</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxWeight[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">kg</span>
                         </div>
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Length</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxLength[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">cm</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxLength[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">cm</span>
                         </div>
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Width</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxWidth[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">cm</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxWidth[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">cm</span>
                         </div>
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Height</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxHeight[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">cm</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxHeight[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">cm</span>
                         </div>
                       </div>
-                      <button type="button" class="btn btn-secondary add-box-btn align-self-end" title="Add box">Add box</button>
+                      <div class="d-flex align-items-end" style="flex:0 0 auto;">
+                        <button type="button" class="btn btn-secondary btn-sm add-box-btn" title="Add box">Add</button>
+                      </div>
                     </div>
                   </div>
 
                   <template id="boxRowTemplate">
                     <div class="box-row d-flex flex-nowrap gap-2 align-items-end mb-2">
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:6ch;">
                         <label class="form-label mb-1">Quantity</label>
-                        <input type="number" name="boxQty[]" class="form-control form-control-sm w-auto" min="0" aria-label="Box quantity">
+                        <input type="number" name="boxQty[]" class="form-control form-control-sm" min="0" aria-label="Box quantity" style="width:100%;">
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Weight</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxWeight[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">kg</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxWeight[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">kg</span>
                         </div>
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Length</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxLength[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">cm</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxLength[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">cm</span>
                         </div>
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Width</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxWidth[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">cm</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxWidth[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">cm</span>
                         </div>
                       </div>
-                      <div class="field d-flex flex-column mb-0">
+                      <div class="d-flex flex-column mb-0" style="width:12ch;">
                         <label class="form-label mb-1">Height</label>
-                        <div class="input-group input-group-sm">
-                          <input type="number" name="boxHeight[]" class="form-control w-auto" step="any" min="0">
-                          <span class="input-group-text" aria-hidden="true">cm</span>
+                        <div class="input-group input-group-sm" style="width:100%;">
+                          <input type="number" name="boxHeight[]" class="form-control" step="any" min="0" style="width:calc(100% - 2.25ch);">
+                          <span class="input-group-text" aria-hidden="true" style="width:2.25ch;padding:0 .35rem;">cm</span>
                         </div>
                       </div>
-                      <button type="button" class="btn btn-secondary add-box-btn align-self-end" title="Add box">Add box</button>
-                      <button type="button" class="btn btn-danger remove-box-btn align-self-end" title="Remove box" aria-label="Remove box">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                          <path fill="white" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                      </button>
+                      <div class="d-flex align-items-end" style="flex:0 0 auto;">
+                        <button type="button" class="btn btn-secondary btn-sm add-box-btn" title="Add box">Add</button>
+                      </div>
+                      <div class="d-flex align-items-end" style="flex:0 0 auto;">
+                        <button type="button" class="btn btn-danger btn-sm remove-box-btn" title="Remove box" aria-label="Remove box">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                            <path fill="white" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </template>
                 </div>
