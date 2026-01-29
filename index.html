@@ -88,10 +88,13 @@
                   </div>
                 </div>
                 <div id="boxesList">
-                  <div class="row mb-2 box-row">
+                  <div class="row g-2 mb-2 box-row">
                     <div class="col-2">
                       <label class="form-label">Quantity</label>
-                      <input type="number" class="form-control" name="boxQty[]" min="1" value="1" required>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxQty[]" min="1" value="1" required>
+                        <span class="input-group-text">box</span>
+                      </div>
                     </div>
                     <div class="col-2">
                       <label class="form-label">Weight</label>
@@ -103,21 +106,21 @@
                     <div class="col-2">
                       <label class="form-label">Length</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" name="boxLength[]" step="0.1" min="0" required>
+                        <input type="number" class="form-control" name="boxLength[]" step="0.01" min="0" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" title="Up to 2 decimal places" required>
                         <span class="input-group-text box-unit-dim">cm</span>
                       </div>
                     </div>
                     <div class="col-2">
                       <label class="form-label">Width</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" name="boxWidth[]" step="0.1" min="0" required>
+                        <input type="number" class="form-control" name="boxWidth[]" step="0.01" min="0" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" title="Up to 2 decimal places" required>
                         <span class="input-group-text box-unit-dim">cm</span>
                       </div>
                     </div>
                     <div class="col-2">
                       <label class="form-label">Height</label>
                       <div class="input-group">
-                        <input type="number" class="form-control" name="boxHeight[]" step="0.1" min="0" required>
+                        <input type="number" class="form-control" name="boxHeight[]" step="0.01" min="0" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" title="Up to 2 decimal places" required>
                         <span class="input-group-text box-unit-dim">cm</span>
                       </div>
                     </div>
