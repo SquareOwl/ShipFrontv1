@@ -275,5 +275,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
+
+    // Open the native date picker when the input receives focus
+    pickupDateInput.addEventListener('focus', () => {
+      try {
+        if (typeof pickupDateInput.showPicker === 'function') {
+          pickupDateInput.showPicker();
+        } else {
+          // fallback: trigger click which often opens the picker
+          pickupDateInput.click();
+        }
+      } catch (err) {
+        // ignore errors — focusing is already enough for many browsers
+      }
+    });
   }
 });
