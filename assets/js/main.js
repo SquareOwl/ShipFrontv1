@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const alertContainer = document.getElementById('alertContainer');
   const submitBtn = document.getElementById('submitBtn');
   const submitBtnText = document.getElementById('submitBtnText');
-  const submitSpinner = document.getElementById('submitSpinner');
 
   function showAlert(type, message) {
     // Insert a Bootstrap alert and focus it for accessibility
@@ -37,15 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Simulate submission: disable controls and show spinner
+    // Simulate submission: disable controls and update button text
     submitBtn.disabled = true;
-    submitSpinner.classList.remove('d-none');
     submitBtnText.textContent = 'Submitting...';
 
     // Simulate async network call
     setTimeout(() => {
       // Reset UI state
-      submitSpinner.classList.add('d-none');
       submitBtn.disabled = false;
       submitBtnText.textContent = 'Submit';
 
