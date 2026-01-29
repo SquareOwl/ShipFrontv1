@@ -48,13 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addressFormFrom = document.getElementById('addressFormFrom');
   const addressFormTo = document.getElementById('addressFormTo');
 
-  // Buttons focus corresponding form
-  document.querySelector('[data-address-type="from"]')?.addEventListener('click', () => {
-    addressFormFrom?.querySelector('input')?.focus();
-  });
-  document.querySelector('[data-address-type="to"]')?.addEventListener('click', () => {
-    addressFormTo?.querySelector('input')?.focus();
-  });
+  // Address form focus handlers removed (buttons were removed from markup)
 
   if (addressFormFrom) {
     addressFormFrom.addEventListener('submit', (e) => {
