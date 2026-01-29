@@ -160,6 +160,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  const attachRowRemoveHandler = (btn) => {
+    if (!btn) return;
+    btn.addEventListener('click', (e) => {
+      const row = e.currentTarget.closest('.box-row');
+      if (row && boxesList.contains(row)) {
+        row.remove();
+        manageRemoveVisibility();
+      }
+    });
+  };
+
+  const configureQuantityAddon = (qtyInput) => {
+    if (!qtyInput) return;
+    const updateAddon = (val) => {
+      const group = qtyInput.closest('.input-group');
+      if (!group) return;
+      const addon = group.querySelector('.input-group-text');
+      if (!addon) return;
+      addon.textContent = (Number(val) > 1) ? 'boxes' : 'box';
+    };
+    const handler = (e) => updateAddon(e.target.value);
+    qtyInput.addEventListener('input', handler);
+    qtyInput.addEventListener('change', handler);
+    updateAddon(qtyInput.value || 1);
+  };
+
   const makeRowClone = () => {
     if (!boxesList) return null;
     const template = boxesList.querySelector('.box-row');
@@ -174,33 +200,13 @@ document.addEventListener('DOMContentLoaded', () => {
         inp.value = '';
       }
     });
-    // Wire remove button on the clone
     const removeBtn = clone.querySelector('.remove-box');
     if (removeBtn) {
       removeBtn.classList.remove('d-none');
-      removeBtn.addEventListener('click', (e) => {
-        const row = e.currentTarget.closest('.box-row');
-        if (row && boxesList.contains(row)) {
-          row.remove();
-          manageRemoveVisibility();
-        }
-      });
+      attachRowRemoveHandler(removeBtn);
     }
-    // Ensure quantity addon and listener are set on the clone
     const qtyInput = clone.querySelector('input[name="boxQty[]"]');
-    if (qtyInput) {
-      const setAddon = (val) => {
-        const group = qtyInput.closest('.input-group');
-        if (!group) return;
-        const addon = group.querySelector('.input-group-text');
-        if (!addon) return;
-        addon.textContent = (Number(val) > 1) ? 'boxes' : 'box';
-      };
-      qtyInput.addEventListener('input', (e) => setAddon(e.target.value));
-      qtyInput.addEventListener('change', (e) => setAddon(e.target.value));
-      // initialize addon text
-      setAddon(qtyInput.value || 1);
-    }
+    configureQuantityAddon(qtyInput);
     return clone;
   };
 
@@ -215,29 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       manageRemoveVisibility();
     });
-    // Wire remove on any existing remove button
-    boxesList.querySelectorAll('.remove-box').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const row = e.currentTarget.closest('.box-row');
-        if (row && boxesList.contains(row)) {
-          row.remove();
-          manageRemoveVisibility();
-        }
-      });
-    });
-    // Bind quantity listeners on existing rows so addon toggles
-    boxesList.querySelectorAll('input[name="boxQty[]"]').forEach((qtyInput) => {
-      const setAddon = (val) => {
-        const group = qtyInput.closest('.input-group');
-        if (!group) return;
-        const addon = group.querySelector('.input-group-text');
-        if (!addon) return;
-        addon.textContent = (Number(val) > 1) ? 'boxes' : 'box';
-      };
-      qtyInput.addEventListener('input', (e) => setAddon(e.target.value));
-      qtyInput.addEventListener('change', (e) => setAddon(e.target.value));
-      setAddon(qtyInput.value || 1);
-    });
+    boxesList.querySelectorAll('.remove-box').forEach(btn => attachRowRemoveHandler(btn));
+    boxesList.querySelectorAll('input[name="boxQty[]"]').forEach(configureQuantityAddon);
     // initial visibility
     manageRemoveVisibility();
   }
