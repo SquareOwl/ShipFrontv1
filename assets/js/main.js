@@ -34,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     form.reset();
   });
 
-  // Address forms (Ship from / Ship to) integrated into main form submission
-
   // Boxes section
   const boxesSection = document.getElementById('boxesSection');
   const boxesList = document.getElementById('boxesList');
@@ -84,6 +82,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   updateRemoveButtons();
-
-  // Pickup date: no enforced minimum (validation removed)
 });
