@@ -21,7 +21,9 @@
       .box-row .field input[name^="boxLength"],
       .box-row .field input[name^="boxWidth"],
       .box-row .field input[name^="boxHeight"] {
-        width: 12ch;
+        width: 12ch !important;
+        min-width: 0;
+        max-width: 100%;
       }
       .box-row .field .box-unit { min-width:3ch; width:3ch; justify-content:center; }
       /* Remove native number input spin buttons across browsers for a cleaner UI. */
