@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return obj;
   }
 
+  const addressFormFrom = document.getElementById('addressFormFrom');
+  const addressFormTo = document.getElementById('addressFormTo');
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const mainData = formToObject(form);
@@ -45,25 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Inline address forms (Ship from / Ship to)
-  const addressFormFrom = document.getElementById('addressFormFrom');
-  const addressFormTo = document.getElementById('addressFormTo');
-
   // Address form focus handlers removed (buttons were removed from markup)
-
-  if (addressFormFrom) {
-    addressFormFrom.addEventListener('submit', (e) => {
-      e.preventDefault();
-      showAlert('Ship from address saved.');
-      addressFormFrom.reset();
-    });
-  }
-  if (addressFormTo) {
-    addressFormTo.addEventListener('submit', (e) => {
-      e.preventDefault();
-      showAlert('Ship to address saved.');
-      addressFormTo.reset();
-    });
-  }
 
   // Boxes section
   const boxesSection = document.getElementById('boxesSection');
