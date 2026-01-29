@@ -77,20 +77,32 @@
                       <input type="number" class="form-control" name="boxQty[]" min="1" value="1">
                     </div>
                     <div class="col-2">
-                      <label class="form-label">L (<span class="box-unit-dim">cm</span>)</label>
-                      <input type="number" class="form-control" name="boxLength[]" step="0.1" min="0">
+                      <label class="form-label">L</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxLength[]" step="0.1" min="0">
+                        <span class="input-group-text box-unit-dim">cm</span>
+                      </div>
                     </div>
                     <div class="col-2">
-                      <label class="form-label">W (<span class="box-unit-dim">cm</span>)</label>
-                      <input type="number" class="form-control" name="boxWidth[]" step="0.1" min="0">
+                      <label class="form-label">W</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxWidth[]" step="0.1" min="0">
+                        <span class="input-group-text box-unit-dim">cm</span>
+                      </div>
                     </div>
                     <div class="col-2">
-                      <label class="form-label">H (<span class="box-unit-dim">cm</span>)</label>
-                      <input type="number" class="form-control" name="boxHeight[]" step="0.1" min="0">
+                      <label class="form-label">H</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxHeight[]" step="0.1" min="0">
+                        <span class="input-group-text box-unit-dim">cm</span>
+                      </div>
                     </div>
                     <div class="col-2">
-                      <label class="form-label">Weight (<span class="box-unit-weight">kg</span>)</label>
-                      <input type="number" class="form-control" name="boxWeight[]" step="0.01" min="0">
+                      <label class="form-label">Weight</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="boxWeight[]" step="0.01" min="0">
+                        <span class="input-group-text box-unit-weight">kg</span>
+                      </div>
                     </div>
                     <div class="col-2 d-flex align-items-end">
                       <button type="button" class="btn btn-outline-danger btn-sm remove-box d-none">Remove</button>
