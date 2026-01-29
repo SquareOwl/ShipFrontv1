@@ -157,46 +157,76 @@ document.addEventListener('DOMContentLoaded', () => {
   unitsRadios.forEach(r => r.addEventListener('change', updateBoxUnits));
   updateBoxUnits();
 
-  // Add / remove rows via delegation
-  const boxesRows = document.getElementById('boxesRows');
-  const boxRowTemplate = document.getElementById('boxRowTemplate');
-  const addBoxRow = (afterRow) => {
-    if (!boxesRows || !boxRowTemplate) return;
-    const clone = boxRowTemplate.content.cloneNode(true);
-    if (afterRow && boxesRows.contains(afterRow)) {
-      boxesRows.insertBefore(clone, afterRow.nextSibling);
-      const inserted = afterRow.nextElementSibling;
-      if (inserted) {
-        updateBoxUnits();
-        const firstInput = inserted.querySelector('input');
-        if (firstInput) firstInput.focus();
-      }
-    } else {
-      boxesRows.appendChild(clone);
-      const inserted = boxesRows.lastElementChild;
-      if (inserted) {
-        updateBoxUnits();
-        const firstInput = inserted.querySelector('input');
-        if (firstInput) firstInput.focus();
-      }
+  // Add / remove rows for the Boxes section (uses #boxesList and #addBoxBtn)
+  const boxesList = document.getElementById('boxesList');
+  const addBoxBtn = document.getElementById('addBoxBtn');
+
+  const manageRemoveVisibility = () => {
+    if (!boxesList) return;
+    const rows = boxesList.querySelectorAll('.box-row');
+    if (rows.length > 1) {
+      rows.forEach(r => {
+        const btn = r.querySelector('.remove-box');
+        if (btn) btn.classList.remove('d-none');
+      });
+    } else if (rows.length === 1) {
+      const btn = rows[0].querySelector('.remove-box');
+      if (btn) btn.classList.add('d-none');
     }
   };
 
-  if (boxesRows) {
-    boxesRows.addEventListener('click', (e) => {
-      const addBtn = e.target.closest && e.target.closest('.add-box-btn');
-      if (addBtn) {
-        const row = addBtn.closest('.row');
-        addBoxRow(row);
-        return;
-      }
-      const removeBtn = e.target.closest && e.target.closest('.remove-box-btn');
-      if (removeBtn) {
-        const row = removeBtn.closest('.row');
-        if (row && boxesRows.contains(row)) row.remove();
-        return;
+  const makeRowClone = () => {
+    if (!boxesList) return null;
+    const template = boxesList.querySelector('.box-row');
+    if (!template) return null;
+    const clone = template.cloneNode(true);
+    // Clear values on cloned inputs
+    clone.querySelectorAll('input').forEach((inp) => {
+      if (inp.type === 'number') {
+        if (inp.name === 'boxQty[]') inp.value = 1;
+        else inp.value = '';
+      } else {
+        inp.value = '';
       }
     });
+    // Wire remove button on the clone
+    const removeBtn = clone.querySelector('.remove-box');
+    if (removeBtn) {
+      removeBtn.classList.remove('d-none');
+      removeBtn.addEventListener('click', (e) => {
+        const row = e.currentTarget.closest('.box-row');
+        if (row && boxesList.contains(row)) {
+          row.remove();
+          manageRemoveVisibility();
+        }
+      });
+    }
+    return clone;
+  };
+
+  if (addBoxBtn && boxesList) {
+    addBoxBtn.addEventListener('click', () => {
+      const newRow = makeRowClone();
+      if (newRow) {
+        boxesList.appendChild(newRow);
+        updateBoxUnits();
+        const firstInput = newRow.querySelector('input');
+        if (firstInput) firstInput.focus();
+      }
+      manageRemoveVisibility();
+    });
+    // Wire remove on any existing remove button
+    boxesList.querySelectorAll('.remove-box').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const row = e.currentTarget.closest('.box-row');
+        if (row && boxesList.contains(row)) {
+          row.remove();
+          manageRemoveVisibility();
+        }
+      });
+    });
+    // initial visibility
+    manageRemoveVisibility();
   }
 
   // Restrict the pickup date input to today or later

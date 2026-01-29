@@ -55,10 +55,54 @@
               </div>
               <hr class="my-4">
 
-              <!-- Boxes section removed -->
+              <!-- Unit selection -->
+              <div class="mb-3">
+                <label class="form-label d-block fw-semibold">Units:</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric" checked>
+                  <label class="form-check-label" for="unitsMetric">Metric (cm / kg)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="units" id="unitsImperial" value="imperial">
+                  <label class="form-check-label" for="unitsImperial">Imperial (in / lb)</label>
+                </div>
+              </div>
 
-              
-
+              <!-- Boxes section -->
+              <div id="boxesSection" class="mb-3">
+                <h3 class="fs-4 fw-semibold mt-3 mb-3">Boxes:</h3>
+                <div id="boxesList">
+                  <div class="row mb-2 box-row">
+                    <div class="col-2">
+                      <label class="form-label">Qty</label>
+                      <input type="number" class="form-control" name="boxQty[]" min="1" value="1">
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">L (cm)</label>
+                      <input type="number" class="form-control" name="boxLength[]" step="0.1" min="0">
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">W (cm)</label>
+                      <input type="number" class="form-control" name="boxWidth[]" step="0.1" min="0">
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">H (cm)</label>
+                      <input type="number" class="form-control" name="boxHeight[]" step="0.1" min="0">
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Weight (kg)</label>
+                      <input type="number" class="form-control" name="boxWeight[]" step="0.01" min="0">
+                    </div>
+                    <div class="col-2 d-flex align-items-end">
+                      <button type="button" class="btn btn-outline-danger btn-sm remove-box d-none">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex gap-2">
+                  <button type="button" id="addBoxBtn" class="btn btn-secondary btn-sm">Add box</button>
+                  <small class="text-muted align-self-end">Add multiple boxes with dimensions and weight.</small>
+                </div>
+              </div>
               <div class="mb-3">
                 <h4 class="fs-5 fw-semibold mb-2">The shipment will be ready for pickup on:</h4>
                 <input type="date" id="pickupDate" name="pickupDate" class="form-control w-25">
