@@ -1,17 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contactForm');
-  const alertContainer = document.getElementById('alertContainer');
-
-  function showAlert(message) {
-    const alert = document.createElement('div');
-    alert.textContent = message;
-    const closeBtn = document.createElement('button');
-    closeBtn.textContent = 'Close';
-    closeBtn.addEventListener('click', () => alert.remove());
-    alert.appendChild(closeBtn);
-    alertContainer.innerHTML = '';
-    alertContainer.appendChild(alert);
-  }
 
   // Main form submission
   function formToObject(form) {
@@ -44,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     console.log('Shipment submission:', submission);
     form.reset();
-    showAlert('Shipment submitted successfully.');
   });
 
   // Address forms (Ship from / Ship to) integrated into main form submission
