@@ -112,9 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Show boxes section when a units radio is selected
   const boxesSection = document.getElementById('boxesSection');
   const unitsRadios = Array.from(document.querySelectorAll('input[name="units"]'));
-  // Allow users to deselect a radio by clicking it again (toggling behavior).
-  // Track last checked radio within this scope to avoid global leakage.
-  let lastChecked = unitsRadios.find(r => r.checked) || null;
+
   function onUnitsChange() {
     if (!boxesSection) return;
     const selected = unitsRadios.some(r => r.checked);
@@ -127,20 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
       boxesSection.classList.add('d-none');
       boxesSection.setAttribute('aria-hidden', 'true');
     }
-    // keep lastChecked in sync
-    lastChecked = unitsRadios.find(r => r.checked) || null;
   }
 
   unitsRadios.forEach((r) => {
-    // Click toggles an already-checked radio off
-    r.addEventListener('click', (e) => {
-      if (r === lastChecked) {
-        // Prevent native re-check; programmatically uncheck and emit change
-        r.checked = false;
-        lastChecked = null;
-        r.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    });
     r.addEventListener('change', onUnitsChange);
   });
   // Initialize state
