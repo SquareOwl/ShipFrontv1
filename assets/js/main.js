@@ -186,6 +186,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
+    // Ensure quantity addon and listener are set on the clone
+    const qtyInput = clone.querySelector('input[name="boxQty[]"]');
+    if (qtyInput) {
+      const setAddon = (val) => {
+        const group = qtyInput.closest('.input-group');
+        if (!group) return;
+        const addon = group.querySelector('.input-group-text');
+        if (!addon) return;
+        addon.textContent = (Number(val) > 1) ? 'boxes' : 'box';
+      };
+      qtyInput.addEventListener('input', (e) => setAddon(e.target.value));
+      qtyInput.addEventListener('change', (e) => setAddon(e.target.value));
+      // initialize addon text
+      setAddon(qtyInput.value || 1);
+    }
     return clone;
   };
 
@@ -209,6 +224,19 @@ document.addEventListener('DOMContentLoaded', () => {
           manageRemoveVisibility();
         }
       });
+    });
+    // Bind quantity listeners on existing rows so addon toggles
+    boxesList.querySelectorAll('input[name="boxQty[]"]').forEach((qtyInput) => {
+      const setAddon = (val) => {
+        const group = qtyInput.closest('.input-group');
+        if (!group) return;
+        const addon = group.querySelector('.input-group-text');
+        if (!addon) return;
+        addon.textContent = (Number(val) > 1) ? 'boxes' : 'box';
+      };
+      qtyInput.addEventListener('input', (e) => setAddon(e.target.value));
+      qtyInput.addEventListener('change', (e) => setAddon(e.target.value));
+      setAddon(qtyInput.value || 1);
     });
     // initial visibility
     manageRemoveVisibility();
