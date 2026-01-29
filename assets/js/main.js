@@ -16,10 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Main form submission
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!form.checkValidity()) {
-      form.querySelector(':invalid')?.focus();
-      return;
-    }
     form.reset();
     showAlert('Shipment submitted successfully.');
   });
@@ -46,10 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   addressForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!addressForm.checkValidity()) {
-      addressForm.querySelector(':invalid')?.focus();
-      return;
-    }
     showAlert('Address saved.');
     modal.hidden = true;
   });
@@ -103,9 +95,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateRemoveButtons();
 
-  // Pickup date minimum
-  const pickupDate = document.getElementById('pickupDate');
-  const today = new Date();
-  const minDate = today.toISOString().split('T')[0];
-  pickupDate.setAttribute('min', minDate);
+  // Pickup date: no enforced minimum (validation removed)
 });
