@@ -16,6 +16,52 @@
       <button type="button" data-address-type="to">Add address (to)</button>
     </div>
 
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.5rem;">
+      <div style="flex:1;min-width:220px;">
+        <h3>Ship from</h3>
+        <form id="addressFormFrom">
+          <input type="hidden" name="addressType" value="from">
+          <label for="companyName_from">Company name:</label>
+          <input type="text" id="companyName_from" name="companyName_from">
+          <label for="country_from">Country:</label>
+          <select id="country_from" name="country_from">
+            <option value="" selected disabled>Select country</option>
+            <option value="US">United States</option>
+            <option value="UK">United Kingdom</option>
+          </select>
+          <label for="addrLine1_from">Address line 1:</label>
+          <input type="text" id="addrLine1_from" name="addrLine1_from">
+          <label for="city_from">City:</label>
+          <input type="text" id="city_from" name="city_from">
+          <div>
+            <button type="submit">Save address</button>
+          </div>
+        </form>
+      </div>
+
+      <div style="flex:1;min-width:220px;">
+        <h3>Ship to</h3>
+        <form id="addressFormTo">
+          <input type="hidden" name="addressType" value="to">
+          <label for="companyName_to">Company name:</label>
+          <input type="text" id="companyName_to" name="companyName_to">
+          <label for="country_to">Country:</label>
+          <select id="country_to" name="country_to">
+            <option value="" selected disabled>Select country</option>
+            <option value="US">United States</option>
+            <option value="UK">United Kingdom</option>
+          </select>
+          <label for="addrLine1_to">Address line 1:</label>
+          <input type="text" id="addrLine1_to" name="addrLine1_to">
+          <label for="city_to">City:</label>
+          <input type="text" id="city_to" name="city_to">
+          <div>
+            <button type="submit">Save address</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div>
       <h2>Shipment Details</h2>
       <label for="fullName">Items description:</label>
@@ -66,34 +112,7 @@
     </button>
   </form>
 
-  <div id="addressModal" hidden>
-    <h2 id="addressModalLabel">Add address</h2>
-    <form id="addressForm" novalidate>
-      <input type="hidden" id="addressType" name="addressType">
-      <label for="companyName">Company name:</label>
-      <input type="text" id="companyName" name="companyName">
-      <label for="country">Country:</label>
-      <select id="country" name="country">
-        <option value="" selected disabled>Select country</option>
-        <option value="US">United States</option>
-        <option value="UK">United Kingdom</option>
-      </select>
-      <label for="addrLine1">Address line 1:</label>
-      <input type="text" id="addrLine1" name="addrLine1">
-      <label for="addrLine2">Address line 2:</label>
-      <input type="text" id="addrLine2" name="addrLine2">
-      <label for="city">City:</label>
-      <input type="text" id="city" name="city">
-      <label for="postcode">Postcode:</label>
-      <input type="text" id="postcode" name="postcode">
-      <label for="emailAddress">Email:</label>
-      <input type="email" id="emailAddress" name="emailAddress">
-      <label for="phoneNumber">Phone:</label>
-      <input type="tel" id="phoneNumber" name="phoneNumber">
-      <button type="button">Cancel</button>
-      <button type="submit">Save address</button>
-    </form>
-  </div>
+  <!-- Address modal removed: moved forms inline above -->
 
   <script src="assets/js/main.js"></script>
 </body>

@@ -20,31 +20,32 @@ document.addEventListener('DOMContentLoaded', () => {
     showAlert('Shipment submitted successfully.');
   });
 
-  // Address modal
-  const modal = document.getElementById('addressModal');
-  const modalTitle = document.getElementById('addressModalLabel');
-  const addressForm = document.getElementById('addressForm');
-  const addressType = document.getElementById('addressType');
+  // Inline address forms (Ship from / Ship to)
+  const addressFormFrom = document.getElementById('addressFormFrom');
+  const addressFormTo = document.getElementById('addressFormTo');
 
-  document.querySelectorAll('[data-address-type]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const type = btn.getAttribute('data-address-type');
-      modalTitle.textContent = type === 'from' ? 'Add address — Ship from' : 'Add address — Ship to';
-      addressType.value = type;
-      addressForm.reset();
-      modal.hidden = false;
+  // Buttons focus corresponding form
+  document.querySelector('[data-address-type="from"]')?.addEventListener('click', () => {
+    addressFormFrom?.querySelector('input')?.focus();
+  });
+  document.querySelector('[data-address-type="to"]')?.addEventListener('click', () => {
+    addressFormTo?.querySelector('input')?.focus();
+  });
+
+  if (addressFormFrom) {
+    addressFormFrom.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showAlert('Ship from address saved.');
+      addressFormFrom.reset();
     });
-  });
-
-  modal.querySelector('button[type="button"]')?.addEventListener('click', () => {
-    modal.hidden = true;
-  });
-
-  addressForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    showAlert('Address saved.');
-    modal.hidden = true;
-  });
+  }
+  if (addressFormTo) {
+    addressFormTo.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showAlert('Ship to address saved.');
+      addressFormTo.reset();
+    });
+  }
 
   // Boxes section
   const boxesSection = document.getElementById('boxesSection');
