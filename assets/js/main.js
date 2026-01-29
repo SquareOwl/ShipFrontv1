@@ -47,8 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showAlert('Shipment submitted successfully.');
   });
 
-  // Inline address forms (Ship from / Ship to)
-  // Address form focus handlers removed (buttons were removed from markup)
+  // Address forms (Ship from / Ship to) integrated into main form submission
 
   // Boxes section
   const boxesSection = document.getElementById('boxesSection');
