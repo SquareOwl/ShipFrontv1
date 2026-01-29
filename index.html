@@ -11,6 +11,12 @@
          Using a dedicated class keeps layout stable (12ch) without relying
          on responsive utility classes that may alter spacing. */
       .qty-12ch { width: 8ch; }
+      /* Compact inline layout for box fields: place fields side-by-side with minimal gap. */
+      .box-row { display:flex; gap:0.25rem; align-items:flex-end; flex-wrap:nowrap; }
+      .box-row .field { display:flex; flex-direction:column; gap:0.25rem; }
+      .box-row .field .input-group,
+      .box-row .field input { min-width:0; }
+      .box-row .field .box-unit { min-width:3ch; width:3ch; justify-content:center; }
       /* Remove native number input spin buttons across browsers for a cleaner UI. */
       /* Chrome, Safari, Edge, Opera */
       input[type=number]::-webkit-outer-spin-button,
@@ -90,81 +96,81 @@
 
                 <div id="boxesSection" class="d-none" aria-hidden="true">
                   <div id="boxesRows">
-                    <!-- initial row (no remove button) -->
-                    <div class="row g-3 mb-2 align-items-end">
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Quantity</label>
+                    <!-- initial row (no remove button) - compact inline layout -->
+                    <div class="box-row mb-2">
+                      <div class="field">
+                        <label class="form-label mb-1">Quantity</label>
                         <input type="number" name="boxQty[]" class="form-control qty-12ch" min="0" aria-label="Box quantity">
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Weight</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Weight</label>
                         <div class="input-group">
                           <input type="number" name="boxWeight[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-weight" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-weight" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Length</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Length</label>
                         <div class="input-group">
                           <input type="number" name="boxLength[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Width</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Width</label>
                         <div class="input-group">
                           <input type="number" name="boxWidth[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Height</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Height</label>
                         <div class="input-group">
                           <input type="number" name="boxHeight[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2 d-flex align-items-end">
+                      <div class="field ms-auto d-flex align-items-end">
                         <button type="button" class="btn btn-secondary add-box-btn" title="Add box">Add box</button>
                       </div>
                     </div>
                   </div>
 
                   <template id="boxRowTemplate">
-                    <div class="row g-3 mb-2 align-items-end">
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Quantity</label>
+                    <div class="box-row mb-2">
+                      <div class="field">
+                        <label class="form-label mb-1">Quantity</label>
                         <input type="number" name="boxQty[]" class="form-control qty-12ch" min="0" aria-label="Box quantity">
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Weight</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Weight</label>
                         <div class="input-group">
                           <input type="number" name="boxWeight[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-weight" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-weight" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Length</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Length</label>
                         <div class="input-group">
                           <input type="number" name="boxLength[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Width</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Width</label>
                         <div class="input-group">
                           <input type="number" name="boxWidth[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2">
-                        <label class="form-label">Height</label>
+                      <div class="field">
+                        <label class="form-label mb-1">Height</label>
                         <div class="input-group">
                           <input type="number" name="boxHeight[]" class="form-control" step="any" min="0">
-                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true" style="min-width:5ch;width:5ch;justify-content:center;"></span>
+                          <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <div class="col-6 col-md-2 d-flex align-items-end gap-2">
+                      <div class="field ms-auto d-flex align-items-end gap-2">
                         <button type="button" class="btn btn-secondary add-box-btn" title="Add box">Add box</button>
                         <button type="button" class="btn btn-danger remove-box-btn" title="Remove box" aria-label="Remove box">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
