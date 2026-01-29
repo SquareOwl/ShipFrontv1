@@ -16,14 +16,14 @@
       .box-row .field { display:flex; flex-direction:column; gap:0.25rem; }
       .box-row .field .input-group,
       .box-row .field input { min-width:0; }
-      .box-row .field .box-unit { min-width:3ch; width:3ch; justify-content:center; }
-      /* Make weight/length/width/height inputs fixed at 12ch while keeping gaps unchanged */
-      .box-row .field input.form-control:not(.qty-12ch) {
+      /* Make Weight, Length, Width, Height fields 12ch wide, but keep spacing and form width unchanged */
+      .box-row .field input[name^="boxWeight"],
+      .box-row .field input[name^="boxLength"],
+      .box-row .field input[name^="boxWidth"],
+      .box-row .field input[name^="boxHeight"] {
         width: 12ch;
-        max-width: 12ch;
-        min-width: 0;
-        box-sizing: border-box;
       }
+      .box-row .field .box-unit { min-width:3ch; width:3ch; justify-content:center; }
       /* Remove native number input spin buttons across browsers for a cleaner UI. */
       /* Chrome, Safari, Edge, Opera */
       input[type=number]::-webkit-outer-spin-button,
