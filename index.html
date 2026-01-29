@@ -1,234 +1,119 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Starter — Blank Slate</title>
-    <!-- Bootstrap CSS (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      /* Slightly widen the boxes inputs for improved readability */
-      #boxesList .form-control {
-        min-width: 6rem;
-      }
-      /* Keep input-group addons visually attached to their inputs */
-      #boxesList .input-group {
-        flex-wrap: nowrap;
-      }
-      #boxesList .input-group-text {
-        white-space: nowrap;
-      }
-    </style>
-    <!-- Custom CSS removed to follow the project plan (use Bootstrap only) -->
-  </head>
-  <body class="bg-light">
-    <header class="py-2">
-      <div class="container text-center">
-        <h1 class="h3 mb-0">Air Shipping Form</h1>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Air Shipping Form</title>
+</head>
+<body>
+  <header>
+    <h1>Air Shipping Form</h1>
+  </header>
+
+  <main>
+    <div id="alertContainer"></div>
+
+    <form id="contactForm" novalidate>
+      <div>
+        <button type="button" data-address-type="from">Add address (from)</button>
+        <button type="button" data-address-type="to">Add address (to)</button>
       </div>
-    </header>
 
-    <main class="container pt-3 pb-5">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-10">
-          <!-- Contact / Submission form built with pure Bootstrap components -->
-          <div class="p-4 border rounded-3 bg-white">
+      <h2>Shipment Details</h2>
+      <label for="fullName">Items description:</label>
+      <input type="text" id="fullName" name="fullName" required maxlength="100">
 
-            <!-- alertContainer will receive dynamic success/error messages -->
-            <div id="alertContainer" aria-live="polite" class="mb-3"></div>
+      <label for="itemValue">Total Shipment Value ($):</label>
+      <input type="number" id="itemValue" name="itemValue" required step="0.01" min="0" placeholder="0.00">
 
-            <form id="contactForm" class="needs-validation" novalidate>
-              <div class="row mb-3">
-                <div class="col-6 d-flex align-items-center">
-                  <div class="fs-4 fw-semibold me-3 mb-0">Ship from:</div>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addressModal" data-address-type="from" aria-label="Add address">Add address</button>
-                </div>
-                <div class="col-6 d-flex align-items-center">
-                  <div class="fs-4 fw-semibold me-3 mb-0">Ship to:</div>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addressModal" data-address-type="to" aria-label="Add address">Add address</button>
-                </div>
-              </div>
-              <hr class="my-4">
+      <h2>Boxes</h2>
+      <fieldset>
+        <legend>Unit system:</legend>
+        <label>
+          <input type="radio" name="units" id="unitsMetric" value="metric" checked required>
+          Metric (cm / kg)
+        </label>
+        <label>
+          <input type="radio" name="units" id="unitsImperial" value="imperial">
+          Imperial (in / lb)
+        </label>
+      </fieldset>
 
-              <h3 class="fs-4 fw-semibold mt-3 mb-3">Shipment Details:</h3>
-              <div class="row mb-3">
-                <div class="col-md-8 mb-3 mb-md-0">
-                  <label for="fullName" class="form-label">Items description, be accurate:</label>
-                  <input type="text" class="form-control" id="fullName" name="fullName" required maxlength="100">
-                  <div class="invalid-feedback">Please enter an item description.</div>
-                </div>
-                <div class="col-md-4">
-                  <label for="itemValue" class="form-label">Total Shipment Value:</label>
-                  <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input type="number" class="form-control" id="itemValue" name="itemValue" required step="0.01" min="0" placeholder="0.00">
-                  </div>
-                  <div class="invalid-feedback">Please provide an item value.</div>
-                </div>
-              </div>
-              <hr class="my-4">
+      <div id="boxesSection">
+        <div id="boxesList">
+          <div data-box-row>
+            <label>Quantity <input type="number" name="boxQty[]" min="1" value="1" step="1" pattern="^\d+$" required></label>
+            <span data-qty-addon>box</span>
 
-              <!-- Boxes section -->
-              <div id="boxesSection" class="mb-3">
-                <div class="d-flex align-items-center mt-3 mb-3">
-                  <div class="me-3"><h3 class="fs-4 fw-semibold mb-0">Boxes:</h3></div>
-                  <div class="flex-grow-1 d-flex justify-content-center">
-                    <div class="d-flex gap-3 align-items-center">
-                      <div class="form-check form-check-inline mb-0">
-                        <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric" checked required>
-                        <label class="form-check-label" for="unitsMetric">Metric (cm / kg)</label>
-                      </div>
-                      <div class="form-check form-check-inline mb-0">
-                        <input class="form-check-input" type="radio" name="units" id="unitsImperial" value="imperial">
-                        <label class="form-check-label" for="unitsImperial">Imperial (in / lb)</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="boxesList">
-                  <div class="row g-2 mb-2 box-row">
-                    <div class="col-2">
-                      <label class="form-label">Quantity</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" name="boxQty[]" min="1" value="1" step="1" inputmode="numeric" pattern="^\d+$" title="Whole numbers only" required>
-                        <span class="input-group-text">box</span>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Weight</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" name="boxWeight[]" step="0.01" min="0" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" title="Up to 2 decimal places" required>
-                        <span class="input-group-text box-unit-weight">kg</span>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Length</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" name="boxLength[]" step="0.01" min="0" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" title="Up to 2 decimal places" required>
-                        <span class="input-group-text box-unit-dim">cm</span>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Width</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" name="boxWidth[]" step="0.01" min="0" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" title="Up to 2 decimal places" required>
-                        <span class="input-group-text box-unit-dim">cm</span>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Height</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" name="boxHeight[]" step="0.01" min="0" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" title="Up to 2 decimal places" required>
-                        <span class="input-group-text box-unit-dim">cm</span>
-                      </div>
-                    </div>
-                    <div class="col-2 d-flex align-items-end justify-content-center">
-                      <button type="button" class="btn btn-outline-danger btn-sm remove-box d-none">Remove</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex gap-2">
-                  <button type="button" id="addBoxBtn" class="btn btn-secondary btn-sm">Add box</button>
-                </div>
-              </div>
-              <hr class="my-4">
-              <div class="mb-3">
-                <h4 class="fs-5 fw-semibold mb-2">The shipment will be ready for pickup on:</h4>
-                <input type="date" id="pickupDate" name="pickupDate" class="form-control w-25" required>
-                <div class="invalid-feedback">Please select a pickup date.</div>
-              </div>
-              <hr class="my-4">
-              <div class="mb-3">
-                <label for="message" class="form-label">Additional details/notes:</label>
-                <textarea class="form-control" id="message" name="message" rows="5" maxlength="1000"></textarea>
-              </div>
-              <hr class="my-4">
-              <button type="submit" id="submitBtn" class="btn btn-primary">
-                <span id="submitBtnText">Submit</span>
-                <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
-              </button>
-            </form>
+            <label>Weight <input type="number" name="boxWeight[]" step="0.01" min="0" required></label>
+            <span data-unit-weight>kg</span>
+
+            <label>Length <input type="number" name="boxLength[]" step="0.01" min="0" required></label>
+            <span data-unit-dim>cm</span>
+
+            <label>Width <input type="number" name="boxWidth[]" step="0.01" min="0" required></label>
+            <span data-unit-dim>cm</span>
+
+            <label>Height <input type="number" name="boxHeight[]" step="0.01" min="0" required></label>
+            <span data-unit-dim>cm</span>
+
+            <button type="button" data-remove-btn hidden>Remove</button>
           </div>
         </div>
+        <button type="button" id="addBoxBtn">Add box</button>
       </div>
-    </main>
 
-    <!-- Bootstrap JS bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Address Modal (separate form; must not be nested inside the main form) -->
-    <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addressModalLabel">Add address</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="addressForm" novalidate>
-              <input type="hidden" id="addressType" name="addressType" value="" />
+      <label for="pickupDate">Shipment ready for pickup on:</label>
+      <input type="date" id="pickupDate" name="pickupDate" required>
 
-              <div class="row">
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="companyName" class="form-label">Company name</label>
-                  <input type="text" id="companyName" name="companyName" class="form-control" maxlength="200" required>
-                </div>
+      <label for="message">Additional notes:</label>
+      <textarea id="message" name="message" rows="5" maxlength="1000"></textarea>
 
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="country" class="form-label">Country</label>
-                  <select id="country" name="country" class="form-select" required>
-                    <option value="" selected disabled>Select country</option>
-                    <option value="US">United States (US)</option>
-                    <option value="UK">United Kingdom (UK)</option>
-                  </select>
-                  <div class="invalid-feedback">Please select a country.</div>
-                </div>
+      <button type="submit" id="submitBtn">
+        <span id="submitBtnText">Submit</span>
+        <span id="submitSpinner" hidden></span>
+      </button>
+    </form>
 
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="addrLine1" class="form-label">Address line 1</label>
-                  <input type="text" id="addrLine1" name="addrLine1" class="form-control" required maxlength="200">
-                  <div class="invalid-feedback">Please enter address line 1.</div>
-                </div>
+    <div id="addressModal" hidden>
+      <h2 id="addressModalLabel">Add address</h2>
+      <form id="addressForm" novalidate>
+        <input type="hidden" id="addressType" name="addressType">
 
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="addrLine2" class="form-label">Address line 2</label>
-                  <input type="text" id="addrLine2" name="addrLine2" class="form-control" maxlength="200">
-                </div>
+        <label for="companyName">Company name:</label>
+        <input type="text" id="companyName" name="companyName" maxlength="200" required>
 
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="city" class="form-label">City</label>
-                  <input type="text" id="city" name="city" class="form-control" required maxlength="100">
-                  <div class="invalid-feedback">Please enter a city.</div>
-                </div>
+        <label for="country">Country:</label>
+        <select id="country" name="country" required>
+          <option value="" selected disabled>Select country</option>
+          <option value="US">United States</option>
+          <option value="UK">United Kingdom</option>
+        </select>
 
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="postcode" class="form-label">Postcode</label>
-                  <input type="text" id="postcode" name="postcode" class="form-control" required maxlength="20">
-                  <div class="invalid-feedback">Please enter a postcode.</div>
-                </div>
+        <label for="addrLine1">Address line 1:</label>
+        <input type="text" id="addrLine1" name="addrLine1" required maxlength="200">
 
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="emailAddress" class="form-label">Email address</label>
-                  <input type="email" id="emailAddress" name="emailAddress" class="form-control" required>
-                  <div class="invalid-feedback">Please enter a valid email address.</div>
-                </div>
+        <label for="addrLine2">Address line 2:</label>
+        <input type="text" id="addrLine2" name="addrLine2" maxlength="200">
 
-                <div class="col-12 col-md-6 mb-3">
-                  <label for="phoneNumber" class="form-label">Phone number</label>
-                  <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" pattern="^[0-9+\\-() ]{7,}$" required>
-                  <div class="invalid-feedback">Please enter a valid phone number.</div>
-                </div>
-              </div>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required maxlength="100">
 
-              <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save address</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+        <label for="postcode">Postcode:</label>
+        <input type="text" id="postcode" name="postcode" required maxlength="20">
+
+        <label for="emailAddress">Email:</label>
+        <input type="email" id="emailAddress" name="emailAddress" required>
+
+        <label for="phoneNumber">Phone:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" pattern="^[0-9+\-() ]{7,}$" required>
+
+        <button type="button">Cancel</button>
+        <button type="submit">Save address</button>
+      </form>
     </div>
-    <!-- Site JS -->
-    <script src="assets/js/main.js"></script>
-  </body>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
 </html>

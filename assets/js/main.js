@@ -1,5 +1,5 @@
 // assets/js/main.js
-// Placeholder for vanilla JS behavior for the form.
+// Vanilla JS for the form without Bootstrap dependencies.
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contactForm');
@@ -8,72 +8,89 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtnText = document.getElementById('submitBtnText');
   const submitSpinner = document.getElementById('submitSpinner');
 
+  const show = (el) => { if (el) el.hidden = false; };
+  const hide = (el) => { if (el) el.hidden = true; };
+
   function showAlert(type, message) {
-    // Insert a Bootstrap alert and focus it for accessibility
     alertContainer.innerHTML = '';
     const wrapper = document.createElement('div');
-    wrapper.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible" role="alert" tabindex="-1">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>`;
+    wrapper.setAttribute('role', 'alert');
+    wrapper.setAttribute('tabindex', '-1');
+    wrapper.textContent = message;
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', 'Close');
+    closeBtn.textContent = '×';
+    closeBtn.addEventListener('click', () => wrapper.remove());
+    wrapper.appendChild(closeBtn);
     alertContainer.appendChild(wrapper);
-    const alertEl = alertContainer.querySelector('.alert');
-    if (alertEl) alertEl.focus();
+    wrapper.focus();
   }
 
   if (!form) return;
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    // Clear previous messages
     alertContainer.innerHTML = '';
 
-    // Use Constraint Validation API
     if (!form.checkValidity()) {
-      form.classList.add('was-validated');
       const firstInvalid = form.querySelector(':invalid');
       if (firstInvalid) firstInvalid.focus();
       return;
     }
 
-    // Simulate submission: disable controls and show spinner
     submitBtn.disabled = true;
-    submitSpinner.classList.remove('d-none');
+    show(submitSpinner);
     submitBtnText.textContent = 'Submitting...';
 
-    // Simulate async network call
     setTimeout(() => {
-      // Reset UI state
-      submitSpinner.classList.add('d-none');
+      hide(submitSpinner);
       submitBtn.disabled = false;
       submitBtnText.textContent = 'Submit';
 
-      // Reset form and validation state
       form.reset();
-      form.classList.remove('was-validated');
 
-      // Show success message
       showAlert('success', 'Thank you — your message has been submitted.');
     }, 1200);
   });
 
-  // Address modal handling
+  // Address modal handling (simple show/hide)
   const addressModalEl = document.getElementById('addressModal');
   const addressForm = document.getElementById('addressForm');
   const addressTypeInput = document.getElementById('addressType');
+  const modalTitle = document.getElementById('addressModalLabel');
 
+  const openModal = (type) => {
+    if (!addressModalEl) return;
+    if (modalTitle) modalTitle.textContent = type === 'from' ? 'Add address — Ship from' : 'Add address — Ship to';
+    if (addressTypeInput) addressTypeInput.value = type;
+    if (addressForm) {
+      addressForm.reset();
+    }
+    addressModalEl.style.display = '';
+    addressModalEl.removeAttribute('aria-hidden');
+    const first = addressModalEl.querySelector('input, select, textarea, button');
+    if (first) first.focus();
+  };
+
+  const closeModal = () => {
+    if (!addressModalEl) return;
+    addressModalEl.style.display = 'none';
+    addressModalEl.setAttribute('aria-hidden', 'true');
+  };
+
+  // Attach open handlers to any button using data-address-type
+  document.querySelectorAll('[data-address-type]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const t = btn.getAttribute('data-address-type') || 'from';
+      openModal(t);
+    });
+  });
+
+  // Find modal close/cancel buttons inside the simplified modal
   if (addressModalEl) {
-    addressModalEl.addEventListener('show.bs.modal', (event) => {
-      const button = event.relatedTarget;
-      const type = button ? button.getAttribute('data-address-type') : 'from';
-      const modalTitle = document.getElementById('addressModalLabel');
-      if (modalTitle) modalTitle.textContent = type === 'from' ? 'Add address — Ship from' : 'Add address — Ship to';
-      if (addressTypeInput) addressTypeInput.value = type;
-      if (addressForm) {
-        addressForm.reset();
-        addressForm.classList.remove('was-validated');
-      }
+    addressModalEl.querySelectorAll('button').forEach(b => {
+      if (b.type === 'button') b.addEventListener('click', closeModal);
     });
   }
 
@@ -81,35 +98,31 @@ document.addEventListener('DOMContentLoaded', () => {
     addressForm.addEventListener('submit', (e) => {
       e.preventDefault();
       if (!addressForm.checkValidity()) {
-        addressForm.classList.add('was-validated');
         const firstInvalid = addressForm.querySelector(':invalid');
         if (firstInvalid) firstInvalid.focus();
         return;
       }
 
-      // Simulate saving the address and close modal
       const saveBtn = addressForm.querySelector('button[type="submit"]');
-      const origText = saveBtn ? saveBtn.innerHTML : null;
+      const origText = saveBtn ? saveBtn.textContent : null;
       if (saveBtn) {
         saveBtn.disabled = true;
-        saveBtn.innerHTML = 'Saving...';
+        saveBtn.textContent = 'Saving...';
       }
 
       setTimeout(() => {
         const typeLabel = addressTypeInput && addressTypeInput.value === 'to' ? 'Ship to' : 'Ship from';
         showAlert('success', `${typeLabel} address saved.`);
-        // Hide modal
-        const modalInstance = bootstrap.Modal.getInstance(addressModalEl);
-        if (modalInstance) modalInstance.hide();
+        closeModal();
         if (saveBtn) {
           saveBtn.disabled = false;
-          saveBtn.innerHTML = origText;
+          saveBtn.textContent = origText;
         }
       }, 800);
     });
   }
 
-  // Show boxes section when a units radio is selected
+  // Show/hide boxes section based on units radios
   const boxesSection = document.getElementById('boxesSection');
   const unitsRadios = Array.from(document.querySelectorAll('input[name="units"]'));
 
@@ -117,53 +130,49 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!boxesSection) return;
     const selected = unitsRadios.some(r => r.checked);
     if (selected) {
-      boxesSection.classList.remove('d-none');
+      show(boxesSection);
       boxesSection.removeAttribute('aria-hidden');
       const firstInput = boxesSection.querySelector('input');
       if (firstInput) firstInput.focus();
     } else {
-      boxesSection.classList.add('d-none');
+      hide(boxesSection);
       boxesSection.setAttribute('aria-hidden', 'true');
     }
   }
 
-  unitsRadios.forEach((r) => {
-    r.addEventListener('change', onUnitsChange);
-  });
-  // Initialize state
+  unitsRadios.forEach((r) => r.addEventListener('change', onUnitsChange));
   onUnitsChange();
 
-  // Update unit labels for box rows
+  // Update unit labels for box rows — use classes added in HTML
   const updateBoxUnits = () => {
     const isImperial = document.getElementById('unitsImperial') && document.getElementById('unitsImperial').checked;
     const dim = isImperial ? 'in' : 'cm';
     const weight = isImperial ? 'lb' : 'kg';
-    document.querySelectorAll('.box-unit-dim').forEach(el => el.textContent = dim);
-    document.querySelectorAll('.box-unit-weight').forEach(el => el.textContent = weight);
+    document.querySelectorAll('[data-unit-dim]').forEach(el => el.textContent = dim);
+    document.querySelectorAll('[data-unit-weight]').forEach(el => el.textContent = weight);
   };
   unitsRadios.forEach(r => r.addEventListener('change', updateBoxUnits));
   updateBoxUnits();
 
-  // Add / remove rows for the Boxes section (uses #boxesList and #addBoxBtn)
+  // Boxes add/remove rows
   const boxesList = document.getElementById('boxesList');
   const addBoxBtn = document.getElementById('addBoxBtn');
 
   const manageRemoveVisibility = () => {
     if (!boxesList) return;
-    const rows = boxesList.querySelectorAll('.box-row');
-    // Always hide the remove button on the first row; show it for subsequent rows
+    const rows = boxesList.querySelectorAll('[data-box-row]');
     rows.forEach((r, idx) => {
-      const btn = r.querySelector('.remove-box');
+      const btn = r.querySelector('[data-remove-btn]');
       if (!btn) return;
-      if (idx === 0) btn.classList.add('d-none');
-      else btn.classList.remove('d-none');
+      if (idx === 0) hide(btn);
+      else show(btn);
     });
   };
 
   const attachRowRemoveHandler = (btn) => {
     if (!btn) return;
     btn.addEventListener('click', (e) => {
-      const row = e.currentTarget.closest('.box-row');
+      const row = e.currentTarget.closest('[data-box-row]');
       if (row && boxesList.contains(row)) {
         row.remove();
         manageRemoveVisibility();
@@ -174,9 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const configureQuantityAddon = (qtyInput) => {
     if (!qtyInput) return;
     const updateAddon = (val) => {
-      const group = qtyInput.closest('.input-group');
+      const group = qtyInput.parentElement;
       if (!group) return;
-      const addon = group.querySelector('.input-group-text');
+      const addon = group.querySelector('.qty-addon');
       if (!addon) return;
       addon.textContent = (Number(val) > 1) ? 'boxes' : 'box';
     };
@@ -188,10 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const makeRowClone = () => {
     if (!boxesList) return null;
-    const template = boxesList.querySelector('.box-row');
+    const template = boxesList.querySelector('[data-box-row]');
     if (!template) return null;
     const clone = template.cloneNode(true);
-    // Clear values on cloned inputs
     clone.querySelectorAll('input').forEach((inp) => {
       if (inp.type === 'number') {
         if (inp.name === 'boxQty[]') inp.value = 1;
@@ -200,9 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
         inp.value = '';
       }
     });
-    const removeBtn = clone.querySelector('.remove-box');
+    const removeBtn = clone.querySelector('[data-remove-btn]');
     if (removeBtn) {
-      removeBtn.classList.remove('d-none');
+      show(removeBtn);
       attachRowRemoveHandler(removeBtn);
     }
     const qtyInput = clone.querySelector('input[name="boxQty[]"]');
@@ -223,11 +231,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     boxesList.querySelectorAll('.remove-box').forEach(btn => attachRowRemoveHandler(btn));
     boxesList.querySelectorAll('input[name="boxQty[]"]').forEach(configureQuantityAddon);
-    // initial visibility
     manageRemoveVisibility();
   }
 
-  // Restrict the pickup date input to today or later
+  // Restrict pickup date to today or later
   const pickupDateInput = document.getElementById('pickupDate');
   if (pickupDateInput) {
     const today = new Date();
@@ -239,23 +246,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pickupDateInput.value && pickupDateInput.value < minDate) {
       pickupDateInput.value = '';
     }
-
-    // Only the input itself should open the native date picker. Avoid making
-    // the surrounding container clickable to prevent unexpected click targets.
-    // (The input's focus handler below will open the picker where supported.)
-
-    // Open the native date picker when the input receives focus
     pickupDateInput.addEventListener('focus', () => {
       try {
-        if (typeof pickupDateInput.showPicker === 'function') {
-          pickupDateInput.showPicker();
-        } else {
-          // fallback: trigger click which often opens the picker
-          pickupDateInput.click();
-        }
-      } catch (err) {
-        // ignore errors — focusing is already enough for many browsers
-      }
+        if (typeof pickupDateInput.showPicker === 'function') pickupDateInput.showPicker();
+        else pickupDateInput.click();
+      } catch (err) {}
     });
   }
 });
