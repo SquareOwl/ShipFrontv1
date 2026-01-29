@@ -55,21 +55,21 @@
               </div>
               <hr class="my-4">
 
-              <!-- Unit selection -->
-              <div class="mb-3 d-flex justify-content-center gap-3">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric" checked>
-                  <label class="form-check-label" for="unitsMetric">Metric (cm / kg)</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="units" id="unitsImperial" value="imperial">
-                  <label class="form-check-label" for="unitsImperial">Imperial (in / lb)</label>
-                </div>
-              </div>
+              <!-- Unit selection (moved into boxes section) -->
 
               <!-- Boxes section -->
               <div id="boxesSection" class="mb-3">
                 <h3 class="fs-4 fw-semibold mt-3 mb-3">Boxes:</h3>
+                <div class="mb-2 d-flex justify-content-center gap-3">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="units" id="unitsMetric" value="metric" checked>
+                    <label class="form-check-label" for="unitsMetric">Metric (cm / kg)</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="units" id="unitsImperial" value="imperial">
+                    <label class="form-check-label" for="unitsImperial">Imperial (in / lb)</label>
+                  </div>
+                </div>
                 <div id="boxesList">
                   <div class="row mb-2 box-row">
                     <div class="col-2">
