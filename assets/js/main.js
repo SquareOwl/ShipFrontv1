@@ -14,8 +14,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Main form submission
+  function formToObject(form) {
+    const fd = new FormData(form);
+    const obj = {};
+    for (const [k, v] of fd.entries()) {
+      if (k.endsWith('[]')) {
+        const key = k.slice(0, -2);
+        if (!obj[key]) obj[key] = [];
+        obj[key].push(v);
+      } else {
+        obj[k] = v;
+      }
+    }
+    return obj;
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    const mainData = formToObject(form);
+    const fromData = addressFormFrom ? formToObject(addressFormFrom) : null;
+    const toData = addressFormTo ? formToObject(addressFormTo) : null;
+    const submission = {
+      main: mainData,
+      shipFrom: fromData,
+      shipTo: toData,
+    };
+    console.log('Shipment submission:', submission);
     form.reset();
     showAlert('Shipment submitted successfully.');
   });
