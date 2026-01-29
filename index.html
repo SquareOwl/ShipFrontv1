@@ -6,36 +6,7 @@
     <title>Starter — Blank Slate</title>
     <!-- Bootstrap CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      /* Small helper: enforce a fixed visual width for the quantity input.
-         Using a dedicated class keeps layout stable (12ch) without relying
-         on responsive utility classes that may alter spacing. */
-      .qty-12ch { width: 8ch; }
-      /* Compact inline layout for box fields: place fields side-by-side with minimal gap. */
-      .box-row { display:flex; gap:0.25rem; align-items:flex-end; flex-wrap:nowrap; }
-      .box-row .field { display:flex; flex-direction:column; gap:0.25rem; }
-      .box-row .field .input-group,
-      .box-row .field input { min-width:0; }
-      /* Fixed width for Weight, Length, Width, Height fields via class.
-        Use flex:0 0 to prevent Bootstrap input-group from stretching the input. */
-      .dim-12ch { width: 12ch !important; min-width: 0; max-width: 100%; flex: 0 0 12ch; box-sizing: border-box; }
-      /* Ensure inputs inside input-group also respect the fixed width */
-      .box-row .field .input-group { display:flex; align-items:center; gap:0.25rem; flex:0 0 auto; }
-      .box-row .field .input-group .dim-12ch { width: 12ch !important; flex: 0 0 12ch; min-width:0; }
-      .box-row .field .box-unit { min-width:3ch; width:3ch; justify-content:center; }
-      /* Remove native number input spin buttons across browsers for a cleaner UI. */
-      /* Chrome, Safari, Edge, Opera */
-      input[type=number]::-webkit-outer-spin-button,
-      input[type=number]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-      /* Firefox */
-      input[type=number] {
-        -moz-appearance: textfield;
-        appearance: textfield;
-      }
-    </style>
+    <!-- Custom CSS removed to follow the project plan (use Bootstrap only) -->
   </head>
   <body class="bg-light">
     <header class="py-2">
