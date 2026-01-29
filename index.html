@@ -11,37 +11,43 @@
   <div id="alertContainer"></div>
 
   <form id="contactForm" novalidate>
-    <button type="button" data-address-type="from">Add address (from)</button>
-    <button type="button" data-address-type="to">Add address (to)</button>
+    <div>
+      <button type="button" data-address-type="from">Add address (from)</button>
+      <button type="button" data-address-type="to">Add address (to)</button>
+    </div>
 
-    <h2>Shipment Details</h2>
-    <label for="fullName">Items description:</label>
-    <input type="text" id="fullName" name="fullName" required maxlength="100">
+    <div>
+      <h2>Shipment Details</h2>
+      <label for="fullName">Items description:</label>
+      <input type="text" id="fullName" name="fullName" required maxlength="100">
 
-    <label for="itemValue">Total Shipment Value ($):</label>
-    <input type="number" id="itemValue" name="itemValue" required step="0.01" min="0" placeholder="0.00">
+      <label for="itemValue">Total Shipment Value ($):</label>
+      <input type="number" id="itemValue" name="itemValue" required step="0.01" min="0" placeholder="0.00">
+    </div>
 
-    <h2>Boxes</h2>
-    <label><input type="radio" name="units" id="unitsMetric" value="metric" checked required> Metric (cm / kg)</label>
-    <label><input type="radio" name="units" id="unitsImperial" value="imperial"> Imperial (in / lb)</label>
+    <div>
+      <h2>Boxes</h2>
+      <label><input type="radio" name="units" id="unitsMetric" value="metric" checked required> Metric (cm / kg)</label>
+      <label><input type="radio" name="units" id="unitsImperial" value="imperial"> Imperial (in / lb)</label>
 
-    <div id="boxesSection">
-      <div id="boxesList">
-        <div data-box-row>
-          <label>Quantity <input type="number" name="boxQty[]" min="1" value="1" step="1" pattern="^\d+$" required></label>
-          <span data-qty-addon>box</span>
-          <label>Weight <input type="number" name="boxWeight[]" step="0.01" min="0" required></label>
-          <span data-unit-weight>kg</span>
-          <label>Length <input type="number" name="boxLength[]" step="0.01" min="0" required></label>
-          <span data-unit-dim>cm</span>
-          <label>Width <input type="number" name="boxWidth[]" step="0.01" min="0" required></label>
-          <span data-unit-dim>cm</span>
-          <label>Height <input type="number" name="boxHeight[]" step="0.01" min="0" required></label>
-          <span data-unit-dim>cm</span>
-          <button type="button" data-remove-btn hidden>Remove</button>
+      <div id="boxesSection">
+        <div id="boxesList">
+          <div data-box-row>
+            <label>Quantity <input type="number" name="boxQty[]" min="1" value="1" step="1" pattern="^\d+$" required></label>
+            <span data-qty-addon>box</span>
+            <label>Weight <input type="number" name="boxWeight[]" step="0.01" min="0" required></label>
+            <span data-unit-weight>kg</span>
+            <label>Length <input type="number" name="boxLength[]" step="0.01" min="0" required></label>
+            <span data-unit-dim>cm</span>
+            <label>Width <input type="number" name="boxWidth[]" step="0.01" min="0" required></label>
+            <span data-unit-dim>cm</span>
+            <label>Height <input type="number" name="boxHeight[]" step="0.01" min="0" required></label>
+            <span data-unit-dim>cm</span>
+            <button type="button" data-remove-btn hidden>Remove</button>
+          </div>
         </div>
+        <button type="button" id="addBoxBtn">Add box</button>
       </div>
-      <button type="button" id="addBoxBtn">Add box</button>
     </div>
 
     <div>
