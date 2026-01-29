@@ -16,15 +16,8 @@
       .box-row .field { display:flex; flex-direction:column; gap:0.25rem; }
       .box-row .field .input-group,
       .box-row .field input { min-width:0; }
-      /* Make Weight, Length, Width, Height fields 12ch wide, but keep spacing and form width unchanged */
-      .box-row .field input[name^="boxWeight"],
-      .box-row .field input[name^="boxLength"],
-      .box-row .field input[name^="boxWidth"],
-      .box-row .field input[name^="boxHeight"] {
-        width: 12ch !important;
-        min-width: 0;
-        max-width: 100%;
-      }
+      /* Fixed width for Weight, Length, Width, Height fields via class */
+      .dim-12ch { width: 12ch !important; min-width: 0; max-width: 100%; }
       .box-row .field .box-unit { min-width:3ch; width:3ch; justify-content:center; }
       /* Remove native number input spin buttons across browsers for a cleaner UI. */
       /* Chrome, Safari, Edge, Opera */
@@ -114,28 +107,28 @@
                       <div class="field">
                         <label class="form-label mb-1">Weight</label>
                         <div class="input-group">
-                          <input type="number" name="boxWeight[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxWeight[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-weight" aria-hidden="true"></span>
                         </div>
                       </div>
                       <div class="field">
                         <label class="form-label mb-1">Length</label>
                         <div class="input-group">
-                          <input type="number" name="boxLength[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxLength[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
                       <div class="field">
                         <label class="form-label mb-1">Width</label>
                         <div class="input-group">
-                          <input type="number" name="boxWidth[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxWidth[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
                       <div class="field">
                         <label class="form-label mb-1">Height</label>
                         <div class="input-group">
-                          <input type="number" name="boxHeight[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxHeight[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
@@ -152,28 +145,28 @@
                       <div class="field">
                         <label class="form-label mb-1">Weight</label>
                         <div class="input-group">
-                          <input type="number" name="boxWeight[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxWeight[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-weight" aria-hidden="true"></span>
                         </div>
                       </div>
                       <div class="field">
                         <label class="form-label mb-1">Length</label>
                         <div class="input-group">
-                          <input type="number" name="boxLength[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxLength[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
                       <div class="field">
                         <label class="form-label mb-1">Width</label>
                         <div class="input-group">
-                          <input type="number" name="boxWidth[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxWidth[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
                       <div class="field">
                         <label class="form-label mb-1">Height</label>
                         <div class="input-group">
-                          <input type="number" name="boxHeight[]" class="form-control" step="any" min="0">
+                          <input type="number" name="boxHeight[]" class="form-control dim-12ch" step="any" min="0">
                           <span class="input-group-text box-unit box-unit-dim" aria-hidden="true"></span>
                         </div>
                       </div>
