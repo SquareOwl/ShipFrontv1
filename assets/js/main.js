@@ -240,26 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
       pickupDateInput.value = '';
     }
 
-    // Make the entire pickup date container open the native date picker
-    // When available use `showPicker()`, otherwise fall back to focus+click.
-    const pickupContainer = pickupDateInput.closest('.mb-3');
-    if (pickupContainer) {
-      pickupContainer.style.cursor = 'pointer';
-      pickupContainer.addEventListener('click', (ev) => {
-        // Ignore clicks directly on interactive elements to avoid double actions
-        if (ev.target === pickupDateInput) return;
-        try {
-          if (typeof pickupDateInput.showPicker === 'function') {
-            pickupDateInput.showPicker();
-          } else {
-            pickupDateInput.focus();
-            pickupDateInput.click();
-          }
-        } catch (err) {
-          pickupDateInput.focus();
-        }
-      });
-    }
+    // Only the input itself should open the native date picker. Avoid making
+    // the surrounding container clickable to prevent unexpected click targets.
+    // (The input's focus handler below will open the picker where supported.)
 
     // Open the native date picker when the input receives focus
     pickupDateInput.addEventListener('focus', () => {
